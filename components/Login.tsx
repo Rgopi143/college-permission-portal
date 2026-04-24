@@ -161,20 +161,14 @@ const Login: React.FC<LoginProps> = ({ onLogin, onBack, isDarkMode, onToggleDark
             </div>
 
             <div className="space-y-2">
-              <label className="block text-xs font-bold text-slate-400 dark:text-slate-600 uppercase tracking-widest ml-1">Secret Key</label>
-              <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-600">
-                  <i className="fas fa-shield-alt"></i>
-                </span>
-                <input
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-700 transition-all text-slate-900 dark:text-white font-medium"
-                  placeholder="••••••••"
-                />
-              </div>
+              <label className="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900 dark:text-white placeholder-slate-400"
+                placeholder="••••••••"
+              />
             </div>
 
             <button
