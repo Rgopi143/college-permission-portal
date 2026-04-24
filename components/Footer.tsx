@@ -9,7 +9,6 @@ const Footer: React.FC = () => {
       </div>
       <div className="space-y-1">
         <p>&copy; 2026 NEC Portal. All rights reserved to RANBIDGE Solutions Private Limited.</p>
-        <p className="text-xs text-slate-500 dark:text-slate-600">Designed and developed by RANBIDGE Solutions Private Limited</p>
       </div>
     </footer>
   );
