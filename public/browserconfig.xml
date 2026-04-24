@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+    <msapplication>
+        <tile>
+            <square70x70logo src="https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png"/>
+            <TileColor>#4f46e5</TileColor>
+        </tile>
+        <tile>
+            <square150x150logo src="https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png"/>
+            <TileColor>#4f46e5</TileColor>
+        </tile>
+        <tile>
+            <square310x310logo src="https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png"/>
+            <TileColor>#4f46e5</TileColor>
+        </tile>
+        <application>
+            <name>NEC CollegeFlow</name>
+            <displayname>CollegeFlow</displayname>
+            <appID>NEC.CollegeFlow</appID>
+        </application>
+    </msapplication>
+</browserconfig>

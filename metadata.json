@@ -1,0 +1,5 @@
+{
+  "name": "CollegeFlow - Multi-Role Approval System",
+  "description": "A comprehensive college workflow system for Narasaraopeta Engineering College (NEC), featuring permission requests and late attendance management with role-based dashboards.",
+  "requestFramePermissions": []
+}
