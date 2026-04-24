@@ -80,6 +80,20 @@ const Sidebar: React.FC<SidebarProps> = ({ user, activeTab, onTabChange, isOpen,
         ))}
       </nav>
 
+        {/* Feedback Button */}
+        <div className="px-4 mb-6">
+          <button
+            onClick={() => {
+              // Handle feedback action
+              alert('Feedback feature coming soon! Thank you for your input.');
+            }}
+            className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-lg transition-all shadow-lg hover:shadow-xl hover:shadow-emerald-500/25 group"
+          >
+            <i className="fas fa-comment-dots text-sm"></i>
+            <span className="font-medium text-sm">Feedback</span>
+          </button>
+        </div>
+
           </aside>
     </>
   );

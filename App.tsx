@@ -78,102 +78,6 @@ const App: React.FC = () => {
           const fetchedMentors = dbUsers.filter(u => u.role !== UserRole.STUDENT);
           setStudents(fetchedStudents);
           if (fetchedMentors.length > 0) setMentors(fetchedMentors);
-        } else {
-          // Add sample students when database is empty
-          const sampleStudents: User[] = [
-            {
-              id: '23471A4201',
-              studentId: '23471A4201',
-              name: 'Arun Kumar',
-              email: '23471A4201@nrtec.in',
-              role: UserRole.STUDENT,
-              branch: 'CSE',
-              year: '2nd Year',
-              mentorId: 'MENTOR001'
-            },
-            {
-              id: '23471A4202',
-              studentId: '23471A4202',
-              name: 'Priya Sharma',
-              email: '23471A4202@nrtec.in',
-              role: UserRole.STUDENT,
-              branch: 'CSE',
-              year: '2nd Year',
-              mentorId: 'MENTOR001'
-            },
-            {
-              id: '23471A4203',
-              studentId: '23471A4203',
-              name: 'Rahul Verma',
-              email: '23471A4203@nrtec.in',
-              role: UserRole.STUDENT,
-              branch: 'AIML',
-              year: '3rd Year',
-              mentorId: 'MENTOR002'
-            },
-            {
-              id: '23471A4204',
-              studentId: '23471A4204',
-              name: 'Sneha Reddy',
-              email: '23471A4204@nrtec.in',
-              role: UserRole.STUDENT,
-              branch: 'ECE',
-              year: '1st Year',
-              mentorId: 'MENTOR003'
-            },
-            {
-              id: '23471A4205',
-              studentId: '23471A4205',
-              name: 'Karthik Patel',
-              email: '23471A4205@nrtec.in',
-              role: UserRole.STUDENT,
-              branch: 'MECH',
-              year: '4th Year',
-              mentorId: 'MENTOR004'
-            },
-            {
-              id: '23471A4206',
-              studentId: '23471A4206',
-              name: 'Anjali Nair',
-              email: '23471A4206@nrtec.in',
-              role: UserRole.STUDENT,
-              branch: 'CIVIL',
-              year: '2nd Year',
-              mentorId: 'MENTOR005'
-            },
-            {
-              id: '23471A4207',
-              studentId: '23471A4207',
-              name: 'Vikram Singh',
-              email: '23471A4207@nrtec.in',
-              role: UserRole.STUDENT,
-              branch: 'EEE',
-              year: '3rd Year',
-              mentorId: 'MENTOR006'
-            },
-            {
-              id: '23471A4208',
-              studentId: '23471A4208',
-              name: 'Divya Gupta',
-              email: '23471A4208@nrtec.in',
-              role: UserRole.STUDENT,
-              branch: 'CSE',
-              year: '1st Year',
-              mentorId: 'MENTOR001'
-            }
-          ];
-          setStudents(sampleStudents);
-          
-          // Also add sample students to database if available
-          if (supabaseService.isAvailable()) {
-            sampleStudents.forEach(student => {
-              const dbUser = {
-                ...student,
-                password_hash: 'technoelite@2025'
-              };
-              supabaseService.upsertUser(dbUser as any);
-            });
-          }
         }
       } catch (e) {
         console.error("Supabase sync failed, using mock fallback.");
@@ -561,7 +465,7 @@ const App: React.FC = () => {
           {renderContent()}
         </main>
         <div className="h-8"></div>
-        <Footer />
+        {currentUser?.role !== UserRole.STUDENT && <Footer />}
       </div>
       <style>{`
         @keyframes progress {

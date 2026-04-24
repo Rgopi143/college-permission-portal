@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { User, UserRole } from '../types';
 import Footer from './Footer';
+import { supabaseService } from '../services/supabaseService';
 
 interface CreateAccountProps {
   onAccountCreated: (user: User) => void;
@@ -76,9 +77,12 @@ const CreateAccount: React.FC<CreateAccountProps> = ({ onAccountCreated, onBack,
     setIsSubmitting(true);
     
     try {
-      // Simulate account creation
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
+      if (!supabaseService.isAvailable()) {
+        setErrors(['Database connection not available. Please try again later.']);
+        return;
+      }
+
+      // Create user object for database
       const newUser: User = {
         id: formData.rollNo,
         studentId: formData.rollNo,
@@ -86,11 +90,30 @@ const CreateAccount: React.FC<CreateAccountProps> = ({ onAccountCreated, onBack,
         email: formData.email,
         role: formData.role,
         branch: formData.branch,
-        year: formData.year
+        year: formData.year,
+        password_hash: formData.password,
+        // Add student-specific fields if role is student
+        ...(formData.role === UserRole.STUDENT && {
+          phone: formData.phone,
+          date_of_birth: formData.dateOfBirth,
+          gender: formData.gender,
+          blood_group: formData.bloodGroup,
+          address: formData.address,
+          city: formData.city,
+          state: formData.state,
+          postal_code: formData.postalCode,
+          emergency_contact_name: formData.emergencyContactName,
+          emergency_contact_phone: formData.emergencyContactPhone,
+          emergency_contact_relation: formData.emergencyContactRelation
+        })
       };
 
+      // Save user to database
+      await supabaseService.upsertUser(newUser);
+      
       onAccountCreated(newUser);
     } catch (error) {
+      console.error('Account creation error:', error);
       setErrors(['Failed to create account. Please try again.']);
     } finally {
       setIsSubmitting(false);

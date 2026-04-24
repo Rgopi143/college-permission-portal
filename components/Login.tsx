@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { User, UserRole } from '../types';
 import Footer from './Footer';
 import CreateAccount from './CreateAccount';
+import { supabaseService } from '../services/supabaseService';
 
 interface LoginProps {
   onLogin: (user: User) => void;
@@ -11,77 +12,39 @@ interface LoginProps {
   onToggleDark: () => void;
 }
 
-const DEMO_ACCOUNTS = [
-  { label: 'Admin', id: 'technoelite@nec', icon: 'fa-user-shield', color: 'bg-indigo-500' },
-  { label: 'HOD', id: 'technoelite@hodnec', icon: 'fa-user-tie', color: 'bg-blue-500' },
-  { label: 'Mentor', id: 'technoelite@mentornec', icon: 'fa-user-graduate', color: 'bg-emerald-500' },
-  { label: 'Security', id: 'technoelite@securitynec', icon: 'fa-shield-halved', color: 'bg-rose-500' },
-  { label: 'Student', id: '21NE1A0501', icon: 'fa-user', color: 'bg-slate-500' },
-];
 
 const Login: React.FC<LoginProps> = ({ onLogin, onBack, isDarkMode, onToggleDark }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [showDemo, setShowDemo] = useState(false);
-  const [showCreateAccount, setShowCreateAccount] = useState(false);
+    const [showCreateAccount, setShowCreateAccount] = useState(false);
 
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     processLogin(username, password);
   };
 
-  const processLogin = (uid: string, pass: string) => {
+  const processLogin = async (uid: string, pass: string) => {
     setError('');
-    const VALID_PASS = 'technoelite@2025';
     
-    let role: UserRole | null = null;
-    let name = '';
-    let id = '';
-
-    const lowerUsername = uid.toLowerCase().trim();
-
-    if (pass === VALID_PASS) {
-      if (lowerUsername === 'technoelite@nec') {
-        role = UserRole.ADMIN;
-        name = 'System Administrator';
-        id = 'ADMIN-001';
-      } else if (lowerUsername === 'technoelite@mentornec' || lowerUsername === 'technoelite@mentoenec') {
-        role = UserRole.MENTOR;
-        name = 'Mentor Coordinator';
-        id = 'MENTOR-001';
-      } else if (lowerUsername === 'technoelite@hodnec') {
-        role = UserRole.HOD;
-        name = 'Head of Department';
-        id = 'HOD-001';
-      } else if (lowerUsername === 'technoelite@securitynec') {
-        role = UserRole.SECURITY;
-        name = 'Security Supervisor';
-        id = 'SEC-001';
-      } else if (uid.trim().length > 0) {
-        role = UserRole.STUDENT;
-        id = uid.trim().toUpperCase();
-        name = id;
+    try {
+      if (!supabaseService.isAvailable()) {
+        setError('Database connection not available. Please try again later.');
+        return;
       }
-    }
 
-    if (role) {
-      onLogin({
-        id: id,
-        name: name,
-        email: lowerUsername.includes('@') ? lowerUsername : `${id.toLowerCase()}@nec.edu`,
-        role: role,
-        branch: 'Computer Science',
-        year: role === UserRole.STUDENT ? '3rd Year' : undefined
-      });
-    } else {
-      setError('Authentication failed. Use the demo credentials below.');
+      // Get user from database
+      const user = await supabaseService.getUserById(uid);
+      
+      if (user && user.password_hash === pass) {
+        onLogin(user);
+      } else {
+        setError('Invalid credentials. Please check your username and password.');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setError('Login failed. Please try again.');
     }
-  };
-
-  const handleDemoFill = (id: string) => {
-    setUsername(id);
-    setPassword('technoelite@2025');
   };
 
   const handleCreateAccount = () => {
@@ -179,36 +142,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, onBack, isDarkMode, onToggleDark
             </button>
           </form>
 
-          <div className="mt-8 pt-8 border-t border-slate-100 dark:border-slate-800">
-            <button 
-              onClick={() => setShowDemo(!showDemo)}
-              className="w-full flex items-center justify-between px-4 py-3 bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-slate-600 dark:text-slate-400 text-sm font-bold transition-colors"
-            >
-              <span className="flex items-center">
-                <i className="fas fa-key mr-3 text-indigo-500"></i>
-                Demo Credentials
-              </span>
-              <i className={`fas fa-chevron-${showDemo ? 'up' : 'down'} text-xs`}></i>
-            </button>
-
-            {showDemo && (
-              <div className="mt-4 grid grid-cols-2 gap-2 animate-slide-down">
-                {DEMO_ACCOUNTS.map((acc) => (
-                  <button
-                    key={acc.id}
-                    onClick={() => handleDemoFill(acc.id)}
-                    className="flex flex-col items-center p-3 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-900 hover:bg-indigo-50 dark:hover:bg-indigo-950/20 transition-all text-left"
-                  >
-                    <div className={`w-8 h-8 ${acc.color} text-white rounded-lg flex items-center justify-center mb-2 shadow-sm`}>
-                      <i className={`fas ${acc.icon} text-xs`}></i>
-                    </div>
-                    <span className="text-[10px] font-black uppercase text-slate-500 dark:text-slate-600">{acc.label}</span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
+          
           <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
             <button
               onClick={handleCreateAccount}

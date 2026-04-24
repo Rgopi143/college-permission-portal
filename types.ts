@@ -61,4 +61,16 @@ export interface User {
   year?: string;
   mentorId?: string; // Links a student to their assigned mentor
   studentId?: string; // Explicit field for students
+  password_hash?: string; // For authentication
+  phone?: string;
+  date_of_birth?: string;
+  gender?: string;
+  blood_group?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  postal_code?: string;
+  emergency_contact_name?: string;
+  emergency_contact_phone?: string;
+  emergency_contact_relation?: string;
 }
