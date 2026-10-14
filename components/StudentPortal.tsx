@@ -583,15 +583,6 @@ const StudentPortal: React.FC<StudentPortalProps> = ({
         </div>
       </div>
 
-      {/* 6. Footer matching Screenshot 3 */}
-      <div className="pt-10 pb-6 text-center text-xs space-y-1 text-slate-500 dark:text-slate-400">
-        <p className="font-extrabold uppercase tracking-wider text-[11px]">
-          Powered by <span className="text-indigo-600 dark:text-indigo-400">RANBIDGE SOLUTIONS PVT LTD</span>
-        </p>
-        <p className="text-[10px] text-slate-400 dark:text-slate-500">
-          © 2026 RANBIDGE SOLUTIONS PVT LTD. All Rights Reserved.
-        </p>
-      </div>
 
       {/* ======================= MODALS FOR THE 9 SERVICES ======================= */}
 
