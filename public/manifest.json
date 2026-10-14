@@ -12,59 +12,59 @@
   "categories": ["education", "productivity"],
   "icons": [
     {
-      "src": "https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png",
+      "src": "/nec-logo.png",
       "sizes": "96x96",
       "type": "image/png",
       "purpose": "any maskable",
       "background_color": "#ffffff"
     },
     {
-      "src": "https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png",
+      "src": "/nec-logo.png",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "any maskable",
       "background_color": "#ffffff"
     },
     {
-      "src": "https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png",
+      "src": "/nec-logo.png",
       "sizes": "64x64",
-      "type": "png",
+      "type": "image/png",
       "purpose": "any maskable",
       "background_color": "#ffffff"
     },
     {
-      "src": "https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png",
+      "src": "/nec-logo.png",
       "sizes": "48x48",
-      "type": "png",
+      "type": "image/png",
       "purpose": "any maskable",
       "background_color": "#ffffff"
     },
     {
-      "src": "https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png",
+      "src": "/nec-logo.png",
       "sizes": "36x36",
-      "type": "png",
+      "type": "image/png",
       "purpose": "any maskable",
       "background_color": "#ffffff"
     },
     {
-      "src": "https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png",
+      "src": "/nec-logo.png",
       "sizes": "32x32",
-      "type": "png",
+      "type": "image/png",
       "purpose": "any maskable",
       "background_color": "#ffffff"
     },
     {
-      "src": "https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png",
+      "src": "/nec-logo.png",
       "sizes": "24x24",
-      "type": "png",
+      "type": "image/png",
       "purpose": "any maskable",
       "background_color": "#ffffff"
     },
     {
-      "src": "https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png",
+      "src": "/nec-logo.png",
       "sizes": "16x16",
-      "type": "png",
-      "purpose": "show"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "shortcuts": [
@@ -75,7 +75,7 @@
       "url": "/?tab=dashboard",
       "icons": [
         {
-          "src": "https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png",
+          "src": "/nec-logo.png",
           "sizes": "192x192"
         }
       ]
@@ -87,7 +87,7 @@
       "url": "/?tab=students",
       "icons": [
         {
-          "src": "https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png",
+          "src": "/nec-logo.png",
           "sizes": "192x192"
         }
       ]
@@ -95,14 +95,14 @@
   ],
   "screenshots": [
     {
-      "src": "https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png",
+      "src": "/nec-logo.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
       "label": "NEC CollegeFlow Dashboard"
     },
     {
-      "src": "https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png",
+      "src": "/nec-logo.png",
       "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow",

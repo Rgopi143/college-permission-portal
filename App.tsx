@@ -38,7 +38,8 @@ const App: React.FC = () => {
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const saved = localStorage.getItem('collegeflow_theme');
-    return saved === 'dark';
+    if (saved) return saved === 'dark';
+    return typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -430,7 +431,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors">
+    <div className="flex min-h-screen bg-[#e4ebf5] dark:bg-[#0f1219] text-slate-800 dark:text-slate-100 transition-colors duration-300">
       <Sidebar 
         user={currentUser!} 
         activeTab={activeTab} 
@@ -448,8 +449,8 @@ const App: React.FC = () => {
         onLogout={handleLogout}
       />
         {isSyncing && (
-          <div className="h-0.5 bg-indigo-100 dark:bg-slate-800 overflow-hidden sticky top-16 z-20">
-            <div className="h-full bg-indigo-600 animate-progress origin-left"></div>
+          <div className="h-1 bg-[#d8e2ef] dark:bg-[#1c212e] neu-inset-sm overflow-hidden sticky top-16 z-20">
+            <div className="h-full bg-gradient-to-r from-indigo-500 to-purple-600 animate-progress origin-left"></div>
           </div>
         )}
         

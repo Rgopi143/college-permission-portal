@@ -7,18 +7,18 @@
     <title>NEC CollegeFlow | Narasaraopeta Engineering College</title>
     
     <!-- Favicon and Logo -->
-    <link rel="icon" type="image/png" href="https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png">
-    <link rel="apple-touch-icon" href="https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png">
+    <link rel="icon" type="image/png" href="/nec-logo.png">
+    <link rel="apple-touch-icon" href="/nec-logo.png">
     
     <!-- Meta tags for branding -->
     <meta name="description" content="NEC CollegeFlow - Student Permission Portal for Narasaraopeta Engineering College">
     <meta name="keywords" content="NEC, CollegeFlow, Narasaraopeta Engineering College, Student Portal, Permission System">
     <meta property="og:title" content="NEC CollegeFlow | Narasaraopeta Engineering College">
     <meta property="og:description" content="Student Permission Portal for Narasaraopeta Engineering College">
-    <meta property="og:image" content="https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png">
+    <meta property="og:image" content="/nec-logo.png">
     <meta property="og:url" content="">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png">
+    <meta name="twitter:image" content="/nec-logo.png">
     
     <!-- Web App Manifest for PWA/Shortcut Support -->
     <link rel="manifest" href="/manifest.json">
@@ -31,10 +31,24 @@
     <meta name="theme-color" content="#4f46e5">
     
     <!-- Additional Icons for Various Sizes -->
-    <link rel="icon" type="image/png" sizes="32x32" href="https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/nec-logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/nec-logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/nec-logo.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/nec-logo.png">
+    <!-- Instant Theme Bootstrap (Prevents White Flash on Reload) -->
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('collegeflow_theme');
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (saved === 'dark' || (!saved && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -45,6 +59,24 @@
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
             },
+            colors: {
+              neu: {
+                bg: '#e4ebf5',
+                surface: '#e4ebf5',
+                darkbg: '#0f1219',
+                darksurface: '#181d2a'
+              }
+            },
+            boxShadow: {
+              'neu-flat': '8px 8px 18px #b8c4d4, -8px -8px 18px #ffffff',
+              'neu-flat-sm': '4px 4px 10px #b8c4d4, -4px -4px 10px #ffffff',
+              'neu-flat-lg': '14px 14px 30px #b0bece, -14px -14px 30px #ffffff',
+              'neu-inset': 'inset 4px 4px 8px #b8c4d4, inset -4px -4px 8px #ffffff',
+              'neu-inset-sm': 'inset 2px 2px 5px #b8c4d4, inset -2px -2px 5px #ffffff',
+              'neu-dark-flat': '8px 8px 18px #07090e, -6px -6px 16px #252d40',
+              'neu-dark-flat-sm': '4px 4px 10px #07090e, -3px -3px 8px #252d40',
+              'neu-dark-inset': 'inset 4px 4px 8px #07090e, inset -3px -3px 8px #252d40',
+            }
           }
         }
       }
@@ -120,7 +152,7 @@
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+<body class="bg-[#e4ebf5] text-slate-800 dark:bg-[#0f1219] dark:text-slate-100 transition-colors duration-300 antialiased selection:bg-indigo-500 selection:text-white">
     <div id="root"></div>
 <script type="module" src="/index.tsx"></script>
 </body>

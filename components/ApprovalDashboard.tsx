@@ -45,131 +45,139 @@ const ApprovalDashboard: React.FC<ApprovalDashboardProps> = ({ user, requests, o
     <div className="space-y-8 animate-fade-in">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-            {user.role} <span className="text-indigo-600">Verification</span>
+          <h1 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight">
+            {user.role} <span className="text-indigo-600 dark:text-indigo-400">Verification</span>
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium italic">
-            Managing {user.branch || 'Departmental'} flow and audit compliance.
+          <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium">
+            Managing {user.branch || 'Departmental'} clearance queue and audit compliance.
           </p>
         </div>
         
-        <div className="flex bg-white dark:bg-slate-900 p-1.5 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+        <div className="neu-tabs-bar">
           <button
             onClick={() => setActiveTab('queue')}
-            className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
-              activeTab === 'queue' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-none' : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
-            }`}
+            className={`neu-tab-btn ${activeTab === 'queue' ? 'active' : ''}`}
           >
             <i className="fas fa-layer-group mr-2"></i> Active Queue ({stats.todo})
           </button>
           <button
             onClick={() => setActiveTab('history')}
-            className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
-              activeTab === 'history' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-none' : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
-            }`}
+            className={`neu-tab-btn ${activeTab === 'history' ? 'active' : ''}`}
           >
             <i className="fas fa-clipboard-check mr-2"></i> My Decisions ({stats.done})
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {[
-          { label: 'My Action List', val: stats.todo, color: 'text-indigo-600', icon: 'fa-hourglass-half' },
-          { label: 'My Total Verified', val: stats.done, color: 'text-emerald-600', icon: 'fa-check-circle' },
-          { label: 'Total In-Flow', val: stats.globalActive, color: 'text-amber-600', icon: 'fa-rotate' },
-          { label: 'Total Verified', val: stats.globalComplete, color: 'text-blue-600', icon: 'fa-database' }
+          { label: 'My Action List', val: stats.todo, color: 'text-indigo-600 dark:text-indigo-400', icon: 'fa-hourglass-half' },
+          { label: 'My Total Verified', val: stats.done, color: 'text-emerald-600 dark:text-emerald-400', icon: 'fa-check-circle' },
+          { label: 'Total In-Flow', val: stats.globalActive, color: 'text-amber-500 dark:text-amber-400', icon: 'fa-rotate' },
+          { label: 'Total Verified', val: stats.globalComplete, color: 'text-blue-500 dark:text-blue-400', icon: 'fa-database' }
         ].map((s, i) => (
-          <div key={i} className="bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm group hover:border-indigo-200 transition-all">
-             <p className="text-[10px] font-black text-slate-400 dark:text-slate-600 uppercase tracking-widest mb-1">{s.label}</p>
+          <div key={i} className="neu-stat-box">
+             <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">{s.label}</p>
              <div className="flex items-center justify-between">
                 <span className={`text-3xl font-black ${s.color}`}>{s.val}</span>
-                <i className={`fas ${s.icon} text-slate-200 dark:text-slate-800 text-xl group-hover:scale-110 transition-transform`}></i>
+                <div className="w-10 h-10 neu-flat-sm rounded-xl flex items-center justify-center text-slate-500">
+                  <i className={`fas ${s.icon} text-base`}></i>
+                </div>
              </div>
           </div>
         ))}
       </div>
 
-      <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
-        <div className="p-8 border-b border-slate-50 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/30">
-          <h3 className="font-black text-slate-800 dark:text-slate-200 uppercase tracking-widest text-sm flex items-center">
-            <i className="fas fa-fingerprint mr-3 text-indigo-500"></i>
-            {activeTab === 'queue' ? 'Requests Requiring Your Signature' : 'Your Individual Verification Log'}
+      <div className="neu-card overflow-hidden">
+        <div className="p-6 md:p-8 border-b border-slate-300/30 dark:border-slate-800/80 flex justify-between items-center">
+          <h3 className="font-extrabold text-slate-800 dark:text-white uppercase tracking-wider text-xs flex items-center">
+            <i className="fas fa-fingerprint mr-2.5 text-indigo-500 text-sm"></i>
+            {activeTab === 'queue' ? 'Requests Requiring Your Verification' : 'Your Individual Verification Log'}
           </h3>
         </div>
         
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-slate-50/20 dark:bg-slate-800/10">
-                <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Student Applicant</th>
-                <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Context / Reason</th>
-                <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Current State</th>
-                <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right">Verification Action</th>
+              <tr className="border-b border-slate-300/20 dark:border-slate-800/50">
+                <th className="px-6 md:px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Student Applicant</th>
+                <th className="px-6 md:px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Context / Reason</th>
+                <th className="px-6 md:px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Current State</th>
+                <th className="px-6 md:px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right">Verification Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-slate-200/40 dark:divide-slate-800/50">
               {filteredList.length > 0 ? filteredList.map(req => (
-                <tr key={req.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group">
-                  <td className="px-8 py-6">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center border-2 border-white dark:border-slate-700 shadow-sm overflow-hidden">
-                        <img src={`https://picsum.photos/seed/${req.rollNo}/100`} alt="" className="w-full h-full object-cover" />
+                <tr key={req.id} className="hover:bg-slate-200/30 dark:hover:bg-slate-800/20 transition-colors group">
+                  <td className="px-6 md:px-8 py-5">
+                    <div className="flex items-center space-x-3.5">
+                      <div className="w-11 h-11 rounded-2xl neu-flat-sm flex items-center justify-center overflow-hidden p-0.5">
+                        <img src={`https://picsum.photos/seed/${req.rollNo}/100`} alt="" className="w-full h-full rounded-xl object-cover" />
                       </div>
                       <div>
-                        <p className="font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 transition-colors">{req.studentName}</p>
+                        <p className="font-bold text-slate-900 dark:text-white text-sm">{req.studentName}</p>
                         <p className="text-xs text-slate-400 font-medium">{req.rollNo} • {req.branch}</p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-8 py-6 max-w-xs">
+                  <td className="px-6 md:px-8 py-5 max-w-xs">
                     <p className="text-sm text-slate-700 dark:text-slate-300 font-medium italic line-clamp-1">"{req.reason}"</p>
-                    <p className="text-[10px] text-slate-400 mt-1 font-black uppercase">{req.type.replace('_', ' ')}</p>
+                    <span className="neu-pill-inset text-[9px] text-slate-500 mt-1 uppercase font-extrabold inline-block">
+                      {req.type.replace('_', ' ')}
+                    </span>
                   </td>
-                  <td className="px-8 py-6">
-                    <div className="flex items-center space-x-2">
+                  <td className="px-6 md:px-8 py-5">
+                    <div className="inline-flex items-center space-x-2 neu-pill-inset text-[10px] font-bold">
                       <div className={`w-2 h-2 rounded-full ${req.status === RequestStatus.DENIED ? 'bg-rose-500' : 'bg-emerald-500 animate-pulse'}`}></div>
-                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">@ {req.currentStep}</span>
+                      <span className="uppercase tracking-widest text-slate-600 dark:text-slate-300">@ {req.currentStep}</span>
                     </div>
                   </td>
-                  <td className="px-8 py-6 text-right">
+                  <td className="px-6 md:px-8 py-5 text-right">
                     {activeTab === 'queue' ? (
-                      <div className="flex items-center justify-end space-x-3 opacity-0 group-hover:opacity-100 transition-all">
+                      <div className="flex items-center justify-end space-x-2.5">
                         <button
                           onClick={() => onAction(req.id, 'DENY')}
-                          className="px-5 py-2.5 text-[10px] font-black uppercase tracking-widest text-rose-500 bg-rose-50 dark:bg-rose-950/20 rounded-xl hover:bg-rose-100 transition-all"
+                          className="neu-btn text-rose-500 hover:text-rose-600 py-2 px-3.5 text-xs font-bold rounded-xl"
                         >
-                          Reject
+                          <i className="fas fa-times mr-1.5"></i>
+                          Deny
                         </button>
-                        <button
-                          onClick={() => onAction(req.id, user.role === UserRole.SECURITY ? 'GRANT' : 'APPROVE')}
-                          className="px-6 py-2.5 text-[10px] font-black uppercase tracking-widest bg-indigo-600 text-white rounded-xl shadow-lg shadow-indigo-100 dark:shadow-none hover:bg-indigo-700 transition-all"
-                        >
-                          {user.role === UserRole.SECURITY ? 'Grant Exit' : 'Sign Off'}
-                        </button>
+                        {user.role === UserRole.SECURITY ? (
+                          <button
+                            onClick={() => onAction(req.id, 'GRANT')}
+                            className="neu-btn-emerald py-2 px-4 text-xs font-bold rounded-xl"
+                          >
+                            <i className="fas fa-check-double mr-1.5"></i>
+                            Grant Pass
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => onAction(req.id, 'APPROVE')}
+                            className="neu-btn-primary py-2 px-4 text-xs font-bold rounded-xl"
+                          >
+                            <i className="fas fa-check mr-1.5"></i>
+                            Approve
+                          </button>
+                        )}
                       </div>
                     ) : (
-                      <div className="flex items-center justify-end">
-                        <span className="px-4 py-2 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 rounded-xl text-[10px] font-black uppercase tracking-widest border border-emerald-100 dark:border-emerald-900/30">
-                          <i className="fas fa-check-double mr-2"></i>
-                          Decision Recorded
-                        </span>
-                      </div>
+                      <span className={`neu-pill text-[10px] uppercase font-bold ${
+                        req.status === RequestStatus.GRANTED || req.status === RequestStatus.APPROVED
+                          ? 'text-emerald-600 dark:text-emerald-400'
+                          : req.status === RequestStatus.DENIED
+                          ? 'text-rose-600 dark:text-rose-400'
+                          : 'text-amber-600 dark:text-amber-400'
+                      }`}>
+                        {req.status}
+                      </span>
                     )}
                   </td>
                 </tr>
               )) : (
                 <tr>
-                  <td colSpan={4} className="px-8 py-20 text-center">
-                    <div className="w-20 h-20 bg-slate-50 dark:bg-slate-800 rounded-[2rem] flex items-center justify-center mx-auto mb-6 text-slate-200 dark:text-slate-700">
-                      <i className={`fas ${activeTab === 'queue' ? 'fa-check-circle' : 'fa-folder-open'} text-3xl`}></i>
-                    </div>
-                    <h3 className="text-slate-900 dark:text-white font-black text-xl">
-                      {activeTab === 'queue' ? 'Queue is Clear' : 'No History Logged'}
-                    </h3>
-                    <p className="text-slate-400 text-sm mt-2 max-w-xs mx-auto font-medium">
-                      {activeTab === 'queue' ? 'There are no student requests waiting for your verification.' : 'Start verifying requests to build your decision history.'}
-                    </p>
+                  <td colSpan={4} className="p-12 text-center text-slate-400 text-sm">
+                    <i className="fas fa-check-circle text-2xl mb-2 text-indigo-400 block"></i>
+                    No requests pending in this queue.
                   </td>
                 </tr>
               )}
@@ -182,3 +190,4 @@ const ApprovalDashboard: React.FC<ApprovalDashboardProps> = ({ user, requests, o
 };
 
 export default ApprovalDashboard;
+

@@ -44,57 +44,71 @@ const Sidebar: React.FC<SidebarProps> = ({ user, activeTab, onTabChange, isOpen,
         />
       )}
       
-      <aside className={`fixed lg:relative w-64 bg-slate-900 dark:bg-black text-white flex-shrink-0 flex flex-col transition-all duration-300 ease-in-out transform border-r border-slate-800/50 z-50 h-screen lg:h-auto ${
+      <aside className={`fixed lg:relative w-64 bg-[#e4ebf5] dark:bg-[#13161f] text-slate-800 dark:text-slate-100 flex-shrink-0 flex flex-col transition-all duration-300 ease-in-out transform neu-flat z-50 h-screen lg:h-auto border-r border-transparent ${
         isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       }`}>
-        <div className="p-6 border-b border-slate-800 flex items-center">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-900/20">
+        <div className="p-6 border-b border-slate-300/40 dark:border-slate-800/80 flex items-center">
+          <div className="flex items-center space-x-3.5">
+            <div className="w-11 h-11 neu-flat-sm rounded-2xl flex items-center justify-center text-indigo-600 dark:text-indigo-400">
               <i className="fas fa-graduation-cap text-xl"></i>
             </div>
-            <span className="text-xl font-bold tracking-tight">CollegeFlow</span>
+            <div>
+              <span className="text-xl font-black tracking-tight text-slate-800 dark:text-white block leading-none">
+                CollegeFlow
+              </span>
+              <span className="text-[9px] font-bold text-slate-500 uppercase tracking-wider">NEC Portal</span>
+            </div>
           </div>
         </div>
       
-      <nav className="flex-1 mt-6 px-4 space-y-1">
-        {getNavItems().map(item => (
-          <button
-            key={item.id}
-            onClick={() => {
-              console.log('Sidebar clicked:', item.id);
-              onTabChange(item.id);
-              // Auto-close sidebar after navigation (only on mobile)
-              if (window.innerWidth < 1024) {
-                onClose();
-              }
-            }}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all ${
-              activeTab === item.id 
-                ? (item.id === 'creative' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 shadow-purple-900/40 shadow-lg text-white' : 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20')
-                : 'text-slate-400 hover:bg-slate-800 hover:text-white'
-            }`}
-          >
-            <i className={`fas ${item.icon} w-5 text-center ${activeTab === item.id && item.id === 'creative' ? 'animate-pulse' : ''}`}></i>
-            <span className="font-medium">{item.label}</span>
-          </button>
-        ))}
+      <nav className="flex-1 mt-6 px-4 space-y-2.5">
+        {getNavItems().map(item => {
+          const isActive = activeTab === item.id;
+          return (
+            <button
+              key={item.id}
+              onClick={() => {
+                console.log('Sidebar clicked:', item.id);
+                onTabChange(item.id);
+                if (window.innerWidth < 1024) {
+                  onClose();
+                }
+              }}
+              className={`w-full flex items-center space-x-3.5 px-4 py-3.5 rounded-2xl font-semibold text-sm transition-all duration-200 ${
+                isActive
+                  ? item.id === 'creative'
+                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-500/25 neu-flat-sm'
+                    : 'neu-inset text-indigo-600 dark:text-indigo-400 font-bold'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:neu-flat-sm'
+              }`}
+            >
+              <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${
+                isActive 
+                  ? (item.id === 'creative' ? 'bg-white/20 text-white' : 'neu-flat-sm text-indigo-600 dark:text-indigo-400') 
+                  : 'text-slate-500'
+              }`}>
+                <i className={`fas ${item.icon} text-sm ${isActive && item.id === 'creative' ? 'animate-pulse' : ''}`}></i>
+              </div>
+              <span className="font-semibold">{item.label}</span>
+            </button>
+          );
+        })}
       </nav>
 
         {/* Feedback Button */}
         <div className="px-4 mb-6">
           <button
             onClick={() => {
-              // Handle feedback action
               alert('Feedback feature coming soon! Thank you for your input.');
             }}
-            className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-lg transition-all shadow-lg hover:shadow-xl hover:shadow-emerald-500/25 group"
+            className="w-full neu-btn-emerald py-3 px-4 text-xs uppercase tracking-wider rounded-2xl flex items-center justify-center space-x-2"
           >
             <i className="fas fa-comment-dots text-sm"></i>
-            <span className="font-medium text-sm">Feedback</span>
+            <span className="font-bold">Feedback</span>
           </button>
         </div>
 
-          </aside>
+      </aside>
     </>
   );
 };

@@ -299,52 +299,61 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
   };
 
   return (
-    <header className="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-3 sm:px-4 md:px-8 flex items-center justify-between sticky top-0 z-10 transition-colors">
+    <header className="h-16 neu-flat px-3 sm:px-4 md:px-8 flex items-center justify-between sticky top-0 z-30 transition-colors">
       {/* Mobile Header */}
       <div className="flex items-center md:hidden flex-1 min-w-0">
         <button 
           onClick={onMenuToggle}
-          className="p-2 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex-shrink-0"
+          className="neu-icon-btn mr-2"
+          title="Open Menu"
         >
-          <i className="fas fa-bars text-lg"></i>
+          <i className="fas fa-bars text-sm"></i>
         </button>
-        <div className="ml-3 flex items-center min-w-0 flex-1">
-          <img 
-            src="https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png" 
-            alt="NEC Logo" 
-            className="w-7 h-7 object-contain mr-2 flex-shrink-0 p-[5px] bg-white rounded-lg shadow-lg shadow-slate-900/20"
-          />
-          <span className="font-bold text-slate-900 dark:text-white text-sm truncate">CollegeFlow</span>
+        <div className="ml-2 flex items-center min-w-0 flex-1">
+          <div className="p-1.5 neu-logo-box dark:bg-white rounded-xl mr-2" data-logo-box="nec">
+            <img 
+              src="/nec-logo.png" 
+              alt="NEC Logo" 
+              className="w-6 h-6 object-contain"
+            />
+          </div>
+          <span className="font-extrabold text-slate-800 dark:text-white text-sm truncate">CollegeFlow</span>
         </div>
       </div>
       
       {/* Desktop Header */}
-      <div className="hidden md:flex items-center">
-        <img 
-          src="https://www.facultyplus.com/wp-content/uploads/2024/04/NEC-Andhra-Prdaesh.png" 
-          alt="NEC Logo" 
-          className="w-8 h-8 object-contain mr-3 p-[5px] bg-white rounded-lg shadow-lg shadow-slate-900/20"
-        />
-        <h2 className="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Role: {user.role}</h2>
+      <div className="hidden md:flex items-center space-x-3">
+        <div className="p-1.5 neu-logo-box dark:bg-white rounded-xl" data-logo-box="nec">
+          <img 
+            src="/nec-logo.png" 
+            alt="NEC Logo" 
+            className="w-7 h-7 object-contain"
+          />
+        </div>
+        <div className="neu-pill-inset text-[11px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+          <span className="w-2 h-2 rounded-full bg-indigo-500 mr-2 animate-pulse"></span>
+          Role: <span className="text-indigo-600 dark:text-indigo-400 ml-1">{user.role}</span>
+        </div>
       </div>
 
-      <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4">
+      <div className="flex items-center space-x-2 sm:space-x-3">
         <button 
           onClick={onToggleDark}
-          className="p-2.5 text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+          className="neu-icon-btn"
           title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
         >
-          <i className={`fas ${isDarkMode ? 'fa-sun' : 'fa-moon'} text-lg`}></i>
+          <i className={`fas ${isDarkMode ? 'fa-sun text-amber-400' : 'fa-moon text-indigo-500'} text-base`}></i>
         </button>
 
         <div className="relative" ref={notificationRef}>
           <button 
             onClick={() => setShowNotifications(!showNotifications)}
-            className="p-2.5 text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+            className="neu-icon-btn relative"
+            title="Notifications"
           >
-            <i className="fas fa-bell text-lg"></i>
+            <i className="fas fa-bell text-base"></i>
             {unreadCount > 0 && (
-              <span className="absolute top-1 right-1 min-w-[18px] h-[18px] bg-gradient-to-r from-red-500 to-pink-500 text-white text-[10px] font-black rounded-full flex items-center justify-center border-2 border-white dark:border-slate-900">
+              <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-rose-500 text-white text-[9px] font-black rounded-full flex items-center justify-center border border-white dark:border-slate-900">
                 {unreadCount > 9 ? '9+' : unreadCount}
               </span>
             )}
@@ -352,7 +361,7 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
 
           {/* Notification Dropdown */}
           {showNotifications && (
-            <div className="absolute right-0 sm:right-0 mt-2 w-[calc(70vw)] sm:w-80 sm:max-w-96 max-w-sm bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden z-50">
+            <div className="absolute right-0 mt-3 w-80 max-w-[calc(100vw-2rem)] neu-card overflow-hidden z-50">
               {/* Header */}
               <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-4 text-white">
                 <div className="flex items-center justify-between">
@@ -431,20 +440,20 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
         <div className="relative" ref={profileRef}>
           <div 
             onClick={() => setShowProfile(!showProfile)}
-            className="flex items-center space-x-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl p-2 -m-2 transition-all"
+            className="flex items-center space-x-2.5 cursor-pointer neu-pill-inset p-1 sm:pl-3 transition-all hover:scale-[1.02]"
           >
-            <div className="text-right hidden sm:block">
-              <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{user.name}</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">{user.email}</p>
+            <div className="text-right hidden sm:block leading-tight">
+              <p className="text-xs font-bold text-slate-800 dark:text-slate-100">{user.name}</p>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400">{user.role}</p>
             </div>
-            <div className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 font-bold overflow-hidden border-2 border-white dark:border-slate-800 shadow-sm transition-all hover:shadow-lg hover:scale-105">
-               <img src={profileImage} alt="Avatar" className="w-full h-full object-cover" />
+            <div className="w-9 h-9 rounded-full neu-flat-sm overflow-hidden p-0.5 border border-white/60 dark:border-slate-700/60 flex items-center justify-center">
+               <img src={profileImage} alt="Avatar" className="w-full h-full rounded-full object-cover" />
             </div>
           </div>
 
           {/* Profile Dropdown */}
           {showProfile && (
-            <div className="absolute right-0 mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden z-50">
+            <div className="absolute right-0 mt-3 w-80 max-w-[calc(100vw-2rem)] neu-card overflow-hidden z-50">
               {!isEditing ? (
                 <>
                   {/* Profile Header */}

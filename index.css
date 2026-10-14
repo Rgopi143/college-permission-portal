@@ -1,0 +1,528 @@
+/* Neumorphism (Soft UI) Design System for CollegeFlow */
+
+:root {
+  /* Light Mode Palette: Soft cool gray-blue canvas */
+  --neu-bg: #e4ebf5;
+  --neu-surface: #e4ebf5;
+  --neu-surface-secondary: #d9e2ef;
+  --neu-surface-card: #e4ebf5;
+  
+  /* Dual Shadows for Light Mode */
+  --neu-shadow-dark: #b8c4d4;
+  --neu-shadow-light: #ffffff;
+  --neu-border-highlight: rgba(255, 255, 255, 0.7);
+  --neu-border-shadow: rgba(184, 196, 212, 0.4);
+
+  /* Primary Brand Accents */
+  --neu-primary: #4f46e5;
+  --neu-primary-light: #6366f1;
+  --neu-primary-dark: #3730a3;
+  --neu-primary-glow: rgba(99, 102, 241, 0.35);
+
+  --neu-emerald: #10b981;
+  --neu-emerald-glow: rgba(16, 185, 129, 0.35);
+  --neu-amber: #f59e0b;
+  --neu-rose: #ef4444;
+
+  /* Typography */
+  --neu-text: #1e293b;
+  --neu-text-muted: #64748b;
+  --neu-text-subtle: #94a3b8;
+
+  /* Standard Neumorphic Dual Shadows */
+  --shadow-neu-flat: 8px 8px 18px var(--neu-shadow-dark), -8px -8px 18px var(--neu-shadow-light);
+  --shadow-neu-flat-sm: 4px 4px 10px var(--neu-shadow-dark), -4px -4px 10px var(--neu-shadow-light);
+  --shadow-neu-flat-lg: 14px 14px 30px var(--neu-shadow-dark), -14px -14px 30px var(--neu-shadow-light);
+  
+  --shadow-neu-inset: inset 4px 4px 8px var(--neu-shadow-dark), inset -4px -4px 8px var(--neu-shadow-light);
+  --shadow-neu-inset-sm: inset 2px 2px 5px var(--neu-shadow-dark), inset -2px -2px 5px var(--neu-shadow-light);
+  --shadow-neu-inset-deep: inset 6px 6px 12px var(--neu-shadow-dark), inset -6px -6px 12px var(--neu-shadow-light);
+
+  --neu-convex-gradient: linear-gradient(145deg, #f0f6ff, #d8e1ee);
+  --neu-concave-gradient: linear-gradient(145deg, #d8e1ee, #f0f6ff);
+}
+
+.dark {
+  color-scheme: dark;
+
+  /* Dark Mode Palette: Deep obsidian canvas with elevated tactile slate surfaces */
+  --neu-bg: #0f1219;
+  --neu-surface: #181d2a;
+  --neu-surface-secondary: #1f2537;
+  --neu-surface-card: #181d2a;
+  --neu-surface-inset: #11141e;
+
+  /* Dual Shadows for Dark Mode: true deep drop-shadow + luminous specular highlight */
+  --neu-shadow-dark: #07090e;
+  --neu-shadow-light: #252d40;
+  --neu-border-highlight: rgba(255, 255, 255, 0.1);
+  --neu-border-shadow: rgba(0, 0, 0, 0.65);
+
+  /* Primary Brand Accents in Dark Mode */
+  --neu-primary: #6366f1;
+  --neu-primary-light: #818cf8;
+  --neu-primary-dark: #4f46e5;
+  --neu-primary-glow: rgba(99, 102, 241, 0.45);
+
+  --neu-emerald: #10b981;
+  --neu-emerald-glow: rgba(16, 185, 129, 0.4);
+  --neu-amber: #f59e0b;
+  --neu-rose: #f43f5e;
+
+  /* High-legibility Typography in Dark Mode */
+  --neu-text: #f8fafc;
+  --neu-text-muted: #cbd5e1;
+  --neu-text-subtle: #94a3b8;
+
+  /* Standard Neumorphic Dual Shadows in Dark */
+  --shadow-neu-flat: 8px 8px 18px var(--neu-shadow-dark), -6px -6px 16px var(--neu-shadow-light);
+  --shadow-neu-flat-sm: 4px 4px 10px var(--neu-shadow-dark), -3px -3px 8px var(--neu-shadow-light);
+  --shadow-neu-flat-lg: 16px 16px 36px var(--neu-shadow-dark), -12px -12px 28px var(--neu-shadow-light);
+
+  --shadow-neu-inset: inset 4px 4px 8px var(--neu-shadow-dark), inset -3px -3px 8px var(--neu-shadow-light);
+  --shadow-neu-inset-sm: inset 2px 2px 5px var(--neu-shadow-dark), inset -2px -2px 5px var(--neu-shadow-light);
+  --shadow-neu-inset-deep: inset 6px 6px 14px var(--neu-shadow-dark), inset -4px -4px 12px var(--neu-shadow-light);
+
+  --neu-convex-gradient: linear-gradient(145deg, #1d2334, #141823);
+  --neu-concave-gradient: linear-gradient(145deg, #141823, #1d2334);
+}
+
+/* Base Document and Root Application */
+html {
+  color-scheme: light;
+  background-color: var(--neu-bg);
+}
+
+html.dark {
+  color-scheme: dark;
+  background-color: #0f1219;
+}
+
+body {
+  background-color: var(--neu-bg);
+  color: var(--neu-text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+  min-height: 100vh;
+}
+
+/* =========================================================
+   CORE NEUMORPHIC UTILITIES
+   ========================================================= */
+
+/* Extruded Surfaces */
+.neu-flat {
+  background-color: var(--neu-surface);
+  box-shadow: var(--shadow-neu-flat) !important;
+  border: 1px solid var(--neu-border-highlight);
+}
+
+.neu-flat-sm {
+  background-color: var(--neu-surface);
+  box-shadow: var(--shadow-neu-flat-sm) !important;
+  border: 1px solid var(--neu-border-highlight);
+}
+
+.neu-flat-lg {
+  background-color: var(--neu-surface);
+  box-shadow: var(--shadow-neu-flat-lg) !important;
+  border: 1px solid var(--neu-border-highlight);
+}
+
+/* Logo Badge/Box: Seamless neumorphic surface in light mode, pure crisp white ONLY in dark mode */
+.neu-logo-box {
+  background-color: var(--neu-surface);
+  box-shadow: var(--shadow-neu-flat-sm);
+  border: 1px solid var(--neu-border-highlight);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark .neu-logo-box,
+.dark .neu-logo-badge,
+.dark [data-logo-box],
+.dark .dark\:bg-white {
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Convex / Concave 3D Curves */
+.neu-convex {
+  background: var(--neu-convex-gradient) !important;
+  box-shadow: var(--shadow-neu-flat) !important;
+  border: 1px solid var(--neu-border-highlight);
+}
+
+.neu-concave {
+  background: var(--neu-concave-gradient) !important;
+  box-shadow: var(--shadow-neu-flat) !important;
+  border: 1px solid var(--neu-border-highlight);
+}
+
+/* Sunken / Inset Surfaces (Inputs, Active elements, Recessed areas) */
+.neu-inset {
+  background-color: var(--neu-surface) !important;
+  box-shadow: var(--shadow-neu-inset) !important;
+  border: 1px solid var(--neu-border-shadow);
+}
+
+.neu-inset-sm {
+  background-color: var(--neu-surface) !important;
+  box-shadow: var(--shadow-neu-inset-sm) !important;
+  border: 1px solid var(--neu-border-shadow);
+}
+
+.neu-inset-deep {
+  background-color: var(--neu-surface) !important;
+  box-shadow: var(--shadow-neu-inset-deep) !important;
+  border: 1px solid var(--neu-border-shadow);
+}
+
+/* Neumorphic Card */
+.neu-card {
+  background-color: var(--neu-surface);
+  box-shadow: var(--shadow-neu-flat);
+  border-radius: 1.75rem;
+  border: 1px solid var(--neu-border-highlight);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-card-interactive {
+  background-color: var(--neu-surface);
+  box-shadow: var(--shadow-neu-flat);
+  border-radius: 1.75rem;
+  border: 1px solid var(--neu-border-highlight);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.neu-card-interactive:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-neu-flat-lg);
+}
+
+/* Neumorphic Buttons with Tactile Depression */
+.neu-btn {
+  background-color: var(--neu-surface);
+  box-shadow: var(--shadow-neu-flat-sm);
+  color: var(--neu-text);
+  border: 1px solid var(--neu-border-highlight);
+  border-radius: 1rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  cursor: pointer;
+}
+
+.neu-btn:hover {
+  box-shadow: var(--shadow-neu-flat);
+  transform: translateY(-1px);
+}
+
+.neu-btn:active, .neu-btn.active {
+  box-shadow: var(--shadow-neu-inset-sm);
+  transform: translateY(1px);
+}
+
+/* Primary Extruded Action Button */
+.neu-btn-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: #ffffff !important;
+  box-shadow: 6px 6px 14px var(--neu-shadow-dark), -6px -6px 14px var(--neu-shadow-light), 0 0 15px var(--neu-primary-glow);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 1rem;
+  padding: 0.85rem 1.75rem;
+  font-weight: 700;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.neu-btn-primary:hover {
+  box-shadow: 8px 8px 20px var(--neu-shadow-dark), -8px -8px 20px var(--neu-shadow-light), 0 0 22px var(--neu-primary-glow);
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.neu-btn-primary:active {
+  box-shadow: inset 3px 3px 6px rgba(15, 23, 42, 0.5), inset -3px -3px 6px rgba(165, 180, 252, 0.35);
+  transform: translateY(1px);
+}
+
+/* Success Button */
+.neu-btn-emerald {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff !important;
+  box-shadow: 6px 6px 14px var(--neu-shadow-dark), -6px -6px 14px var(--neu-shadow-light), 0 0 15px var(--neu-emerald-glow);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 1rem;
+  padding: 0.85rem 1.75rem;
+  font-weight: 700;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.neu-btn-emerald:hover {
+  box-shadow: 8px 8px 20px var(--neu-shadow-dark), -8px -8px 20px var(--neu-shadow-light), 0 0 22px var(--neu-emerald-glow);
+  transform: translateY(-2px);
+}
+.neu-btn-emerald:active {
+  box-shadow: inset 3px 3px 6px rgba(6, 78, 59, 0.6), inset -3px -3px 6px rgba(110, 231, 183, 0.4);
+  transform: translateY(1px);
+}
+
+/* Icon Action Button (Circular / Rounded-2xl) */
+.neu-icon-btn {
+  background-color: var(--neu-surface);
+  box-shadow: var(--shadow-neu-flat-sm);
+  color: var(--neu-text);
+  border: 1px solid var(--neu-border-highlight);
+  border-radius: 1rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.neu-icon-btn:hover {
+  box-shadow: var(--shadow-neu-flat);
+  color: var(--neu-primary);
+  transform: translateY(-1px);
+}
+.neu-icon-btn:active, .neu-icon-btn.active {
+  box-shadow: var(--shadow-neu-inset-sm);
+  color: var(--neu-primary);
+  transform: translateY(1px);
+}
+
+/* Neumorphic Input & Textarea Fields */
+.neu-input, .neu-textarea, .neu-select {
+  background-color: var(--neu-surface) !important;
+  box-shadow: var(--shadow-neu-inset) !important;
+  border: 1px solid var(--neu-border-shadow) !important;
+  color: var(--neu-text) !important;
+  border-radius: 1.25rem;
+  padding: 0.9rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  width: 100%;
+  transition: all 0.25s ease;
+}
+
+.neu-input.text-center, input.text-center {
+  text-align: center !important;
+  padding-left: 2.75rem !important;
+  padding-right: 2.75rem !important;
+}
+
+.neu-input.text-center::placeholder, input.text-center::placeholder {
+  text-align: center !important;
+}
+
+.neu-input.pl-11 {
+  padding-left: 2.75rem !important;
+}
+
+.neu-input.px-12 {
+  padding-left: 3rem !important;
+  padding-right: 3rem !important;
+}
+
+/* Neumorphic Input Icon Alignment */
+.neu-input-icon {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--neu-text-subtle);
+  pointer-events: none;
+  z-index: 10;
+  line-height: 1;
+}
+
+.neu-input-icon-right {
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--neu-text-subtle);
+  cursor: pointer;
+  z-index: 10;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.neu-input-icon-right:hover {
+  color: var(--neu-primary);
+}
+
+.neu-input::placeholder, .neu-textarea::placeholder {
+  color: var(--neu-text-subtle);
+}
+
+/* Dark Mode Inset & Recessed Wells */
+.dark .neu-inset,
+.dark .neu-inset-sm,
+.dark .neu-inset-deep,
+.dark .neu-input,
+.dark .neu-textarea,
+.dark .neu-select,
+.dark .neu-pill-inset {
+  background-color: var(--neu-surface-inset, #11141e) !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark .neu-input::placeholder,
+.dark .neu-textarea::placeholder,
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+.neu-input:focus, .neu-textarea:focus, .neu-select:focus {
+  outline: none;
+  border-color: rgba(99, 102, 241, 0.45) !important;
+  box-shadow: var(--shadow-neu-inset), 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+}
+
+/* Pills and Badges */
+.neu-pill {
+  background-color: var(--neu-surface);
+  box-shadow: var(--shadow-neu-flat-sm);
+  border: 1px solid var(--neu-border-highlight);
+  border-radius: 9999px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.neu-pill-inset {
+  background-color: var(--neu-surface);
+  box-shadow: var(--shadow-neu-inset-sm);
+  border: 1px solid var(--neu-border-shadow);
+  border-radius: 9999px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Tabs Switcher Container */
+.neu-tabs-bar {
+  background-color: var(--neu-surface);
+  box-shadow: var(--shadow-neu-inset);
+  border: 1px solid var(--neu-border-shadow);
+  border-radius: 1.5rem;
+  padding: 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.neu-tab-btn {
+  border-radius: 1.25rem;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--neu-text-muted);
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.neu-tab-btn:hover {
+  color: var(--neu-text);
+}
+
+.neu-tab-btn.active {
+  background-color: var(--neu-surface);
+  box-shadow: var(--shadow-neu-flat-sm);
+  color: var(--neu-primary);
+  border-color: var(--neu-border-highlight);
+}
+
+/* Neumorphic Metric / Stat Widget */
+.neu-stat-box {
+  background-color: var(--neu-surface);
+  box-shadow: var(--shadow-neu-flat);
+  border: 1px solid var(--neu-border-highlight);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  transition: all 0.25s ease;
+}
+.neu-stat-box:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-neu-flat-lg);
+}
+
+/* Subtle Glassmorphism Hybrid for Overlays & Drawers */
+.neu-glass {
+  background: rgba(228, 235, 245, 0.75) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: var(--shadow-neu-flat-lg);
+}
+.dark .neu-glass {
+  background: rgba(23, 27, 38, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Custom Scrollbars to blend with Neumorphism */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--neu-surface);
+  border-radius: 10px;
+  box-shadow: var(--shadow-neu-inset-sm);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neu-surface-secondary);
+  border-radius: 10px;
+  box-shadow: var(--shadow-neu-flat-sm);
+  border: 2px solid var(--neu-surface);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neu-primary);
+}
+
+/* Global utility overrides for seamless application */
+.neu-bg {
+  background-color: var(--neu-bg) !important;
+}
+.neu-surface {
+  background-color: var(--neu-surface) !important;
+}

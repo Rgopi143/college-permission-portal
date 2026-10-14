@@ -31,16 +31,16 @@ const Toast: React.FC<ToastProps> = ({ message, type, onClose, duration = 3500 }
   return (
     <div className="fixed top-20 right-4 md:right-8 z-[100] animate-slide-in">
       <div className={`
-        relative overflow-hidden min-w-[320px] max-w-md p-4 rounded-2xl shadow-2xl border backdrop-blur-md
+        relative overflow-hidden min-w-[320px] max-w-md p-4 rounded-2xl neu-card
         flex items-center space-x-4 transition-all transform hover:scale-[1.02]
         ${isSuccess 
-          ? 'bg-white/90 dark:bg-emerald-950/90 border-emerald-100 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100' 
-          : 'bg-white/90 dark:bg-rose-950/90 border-rose-100 dark:border-rose-800 text-rose-900 dark:text-rose-100'
+          ? 'text-emerald-700 dark:text-emerald-300' 
+          : 'text-rose-700 dark:text-rose-300'
         }
       `}>
         <div className={`
-          flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center
-          ${isSuccess ? 'bg-emerald-100 dark:bg-emerald-800/50 text-emerald-600' : 'bg-rose-100 dark:bg-rose-800/50 text-rose-600'}
+          flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center neu-flat-sm
+          ${isSuccess ? 'text-emerald-500' : 'text-rose-500'}
         `}>
           <i className={`fas ${isSuccess ? 'fa-check-circle' : 'fa-exclamation-circle'} text-lg`}></i>
         </div>

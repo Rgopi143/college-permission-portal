@@ -17,91 +17,110 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ requests, insight }) =>
 
   return (
     <div className="space-y-8 animate-fade-in">
-      <div className="bg-slate-900 dark:bg-black rounded-[2.5rem] p-8 md:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden transition-colors border border-slate-800">
+      {/* Neumorphic Live Monitor Header */}
+      <div className="neu-card p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
         <div className="z-10 relative">
-          <div className="inline-flex items-center px-3 py-1 bg-white/10 rounded-full text-indigo-300 text-[10px] font-black uppercase tracking-widest mb-4 backdrop-blur-sm">
-            <span className="w-2 h-2 bg-indigo-500 rounded-full mr-2 animate-pulse"></span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 neu-pill-inset text-indigo-600 dark:text-indigo-400 text-[10px] font-black uppercase tracking-widest mb-3">
+            <span className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></span>
             System Live Monitor
           </div>
-          <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none">Global Control</h1>
-          <p className="text-slate-400 mt-4 max-w-sm font-medium text-lg leading-relaxed">Cross-departmental monitoring of all college-wide workflow clearances.</p>
+          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-slate-800 dark:text-white leading-tight">
+            Global Control
+          </h1>
+          <p className="text-slate-500 dark:text-slate-400 mt-2 max-w-sm font-medium text-sm md:text-base leading-relaxed">
+            Cross-departmental monitoring of all college-wide workflow clearances.
+          </p>
         </div>
         <div className="flex gap-4 z-10 relative">
-          <div className="bg-white/5 backdrop-blur-xl p-8 rounded-[2rem] border border-white/10 w-40 text-center flex flex-col justify-center transition-transform hover:scale-105">
-            <p className="text-4xl font-black mb-1">{stats.total}</p>
-            <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em]">All Logs</p>
+          <div className="neu-inset-sm p-6 rounded-3xl w-36 text-center">
+            <p className="text-3xl md:text-4xl font-black mb-1 text-slate-800 dark:text-white">{stats.total}</p>
+            <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em]">All Logs</p>
           </div>
-          <div className="bg-emerald-500/10 backdrop-blur-xl p-8 rounded-[2rem] border border-emerald-500/20 w-40 text-center flex flex-col justify-center transition-transform hover:scale-105">
-            <p className="text-4xl font-black text-emerald-400 mb-1">{stats.approved}</p>
-            <p className="text-[10px] text-emerald-500/50 font-black uppercase tracking-[0.2em]">Verified</p>
+          <div className="neu-inset-sm p-6 rounded-3xl w-36 text-center">
+            <p className="text-3xl md:text-4xl font-black text-emerald-500 dark:text-emerald-400 mb-1">{stats.approved}</p>
+            <p className="text-[10px] text-emerald-600/70 dark:text-emerald-400/70 font-black uppercase tracking-[0.2em]">Verified</p>
           </div>
         </div>
-        <div className="absolute -right-24 -bottom-24 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl"></div>
-        <div className="absolute -left-24 -top-24 w-64 h-64 bg-emerald-600/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800 shadow-sm relative overflow-hidden transition-colors">
-        <div className="flex items-center space-x-3 mb-6">
-           <div className="bg-indigo-600 text-white p-2 rounded-xl shadow-lg shadow-indigo-100 dark:shadow-none">
-             <i className="fas fa-brain text-sm"></i>
+      {/* AI Intelligent Trends */}
+      <div className="neu-card p-6 md:p-8 relative overflow-hidden">
+        <div className="flex items-center space-x-3 mb-5">
+           <div className="w-10 h-10 neu-flat-sm text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center">
+             <i className="fas fa-brain text-base"></i>
            </div>
-           <h3 className="font-black text-slate-900 dark:text-white uppercase tracking-widest text-sm">Gemini Intelligent Trends</h3>
+           <div>
+             <h3 className="font-black text-slate-800 dark:text-white uppercase tracking-wider text-xs">
+               Gemini Intelligent Insights
+             </h3>
+             <span className="text-[10px] text-slate-400 font-bold">Automated Trend Analysis</span>
+           </div>
         </div>
-        <div className="relative z-10 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
-          <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-medium italic">
-            {insight || "Synthesizing latest approval patterns to generate executive insights..."}
+        <div className="neu-inset p-5 rounded-2xl">
+          <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-medium text-sm italic">
+            "{insight || "Synthesizing latest approval patterns to generate executive insights..."}"
           </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-800 p-8 transition-colors">
-          <div className="flex justify-between items-center mb-10">
-            <h3 className="font-black text-slate-900 dark:text-white uppercase tracking-widest text-sm">Real-time Stream</h3>
-            <span className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse shadow-lg shadow-emerald-200"></span>
+        {/* Real-time Stream */}
+        <div className="neu-card p-6 md:p-8">
+          <div className="flex justify-between items-center mb-8">
+            <h3 className="font-extrabold text-slate-800 dark:text-white uppercase tracking-wider text-xs">
+              Real-time Stream
+            </h3>
+            <span className="neu-pill-inset text-[10px] text-emerald-500 font-black">
+              <span className="w-2 h-2 bg-emerald-500 rounded-full mr-1.5 animate-pulse inline-block"></span>
+              Live Feed
+            </span>
           </div>
-          <div className="space-y-8">
+          <div className="space-y-4">
             {requests.slice(0, 5).map((req, idx) => (
-              <div key={idx} className="flex items-start space-x-5 group">
-                <div className="mt-1 flex flex-col items-center">
-                   <div className={`w-3 h-3 rounded-full ${idx === 0 ? 'bg-indigo-500 shadow-md shadow-indigo-200' : 'bg-slate-200 dark:bg-slate-800'}`}></div>
-                   {idx < 4 && <div className="w-0.5 h-10 bg-slate-50 dark:bg-slate-800 mt-2"></div>}
-                </div>
-                <div className="flex-1 bg-slate-50/50 dark:bg-slate-800/20 p-4 rounded-2xl border border-transparent group-hover:border-slate-100 dark:group-hover:border-slate-800 transition-all">
-                  <p className="text-sm font-bold text-slate-800 dark:text-slate-200">
-                    {req.studentName} <span className="text-slate-400 font-medium">triggered</span> {req.type.replace('_', ' ')}
-                  </p>
-                  <div className="flex items-center space-x-3 mt-1.5">
-                     <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-tighter bg-indigo-50 dark:bg-indigo-900/30 px-2 py-0.5 rounded-md">At {req.currentStep}</span>
-                     <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter">• {req.status}</span>
+              <div key={idx} className="neu-inset-sm p-4 rounded-2xl flex items-center justify-between group">
+                <div className="flex items-center space-x-3.5">
+                  <div className="w-10 h-10 neu-flat-sm rounded-xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0">
+                    <i className="fas fa-user text-xs"></i>
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-slate-800 dark:text-slate-200">
+                      {req.studentName} <span className="text-slate-400 font-normal">requested</span> {req.type.replace('_', ' ')}
+                    </p>
+                    <div className="flex items-center space-x-2 mt-1">
+                      <span className="neu-pill-inset text-[9px] font-extrabold text-indigo-600 dark:text-indigo-400">At {req.currentStep}</span>
+                      <span className="text-[10px] text-slate-400 font-medium">• {req.status}</span>
+                    </div>
                   </div>
                 </div>
-                <p className="text-[10px] text-slate-300 dark:text-slate-600 font-black uppercase whitespace-nowrap pt-5">Just Now</p>
+                <p className="text-[10px] text-slate-400 font-extrabold uppercase whitespace-nowrap pl-2">Recent</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-800 p-8 transition-colors">
-          <h3 className="font-black text-slate-900 dark:text-white uppercase tracking-widest text-sm mb-10">Departmental Saturation</h3>
-          <div className="space-y-10">
+        {/* Departmental Saturation */}
+        <div className="neu-card p-6 md:p-8">
+          <h3 className="font-extrabold text-slate-800 dark:text-white uppercase tracking-wider text-xs mb-8">
+            Departmental Saturation
+          </h3>
+          <div className="space-y-6">
              {Object.values(WorkflowStep).map(step => {
                const count = requests.filter(r => r.currentStep === step).length;
-               const pct = (count / (requests.length || 1)) * 100;
+               const pct = Math.round((count / (requests.length || 1)) * 100);
                return (
                  <div key={step}>
-                   <div className="flex justify-between items-end mb-3">
+                   <div className="flex justify-between items-end mb-2">
                       <div>
-                        <span className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Processing Node</span>
-                        <h4 className="text-sm font-black text-slate-900 dark:text-slate-200">{step}</h4>
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Processing Node</span>
+                        <h4 className="text-xs font-black text-slate-800 dark:text-slate-200">{step}</h4>
                       </div>
                       <div className="text-right">
-                        <span className="text-xl font-black text-indigo-600 dark:text-indigo-400">{count}</span>
-                        <span className="text-[10px] font-bold text-slate-400 dark:text-slate-600 block uppercase">Active Cases</span>
+                        <span className="text-lg font-black text-indigo-600 dark:text-indigo-400 mr-1">{count}</span>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase">({pct}%)</span>
                       </div>
                    </div>
-                   <div className="h-4 bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden p-1 shadow-inner">
-                      <div className={`h-full rounded-full transition-all duration-1000 ${step === WorkflowStep.COMPLETED ? 'bg-emerald-500' : 'bg-indigo-500'}`} style={{ width: `${pct}%` }}></div>
+                   <div className="h-3 neu-inset-sm rounded-full overflow-hidden p-0.5">
+                      <div className={`h-full rounded-full transition-all duration-1000 ${step === WorkflowStep.COMPLETED ? 'bg-gradient-to-r from-emerald-500 to-teal-400' : 'bg-gradient-to-r from-indigo-500 to-purple-600'}`} style={{ width: `${Math.max(pct, 5)}%` }}></div>
                    </div>
                  </div>
                );
