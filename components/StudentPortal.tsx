@@ -231,7 +231,7 @@ const StudentPortal: React.FC<StudentPortalProps> = ({
   const activeOutpass = requests.find(r => r.status === RequestStatus.PENDING || r.status === RequestStatus.APPROVED);
 
   return (
-    <div className="max-w-2xl lg:max-w-4xl mx-auto space-y-6 pb-20 animate-fade-in relative px-1 sm:px-2">
+    <div className="max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-auto space-y-6 pb-20 animate-fade-in relative px-1 sm:px-2">
       {/* Toast Notification */}
       {successToast && (
         <div className="fixed top-20 right-4 sm:right-8 z-50 neu-card bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-500/40 p-4 rounded-2xl flex items-center space-x-3 shadow-2xl animate-fade-in max-w-sm">
@@ -436,7 +436,7 @@ const StudentPortal: React.FC<StudentPortalProps> = ({
           Services Directory
         </h2>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
           {/* 1. Outpass Clearance */}
           <button
             onClick={() => setActiveModal('outpass')}
@@ -568,7 +568,7 @@ const StudentPortal: React.FC<StudentPortalProps> = ({
           {/* 9. Campus Events (spans full or styled nicely) */}
           <button
             onClick={() => setActiveModal('events')}
-            className="p-4 sm:p-5 rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] bg-[#fdf2f8] dark:bg-[#341824] border border-pink-100/90 dark:border-pink-900/40 neu-card-interactive col-span-2 sm:col-span-1"
+            className="p-4 sm:p-5 rounded-2xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] bg-[#fdf2f8] dark:bg-[#341824] border border-pink-100/90 dark:border-pink-900/40 neu-card-interactive col-span-2 md:col-span-1"
           >
             <div className="w-10 h-10 rounded-xl bg-pink-100 dark:bg-pink-900/60 text-pink-600 dark:text-pink-400 flex items-center justify-center mb-3 text-lg">
               <i className="fas fa-calendar-alt"></i>
