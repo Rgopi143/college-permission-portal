@@ -300,41 +300,71 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
 
   return (
     <header className="h-16 neu-flat px-3 sm:px-4 md:px-8 flex items-center justify-between sticky top-0 z-30 transition-colors">
-      {/* Mobile Header */}
-      <div className="flex items-center md:hidden flex-1 min-w-0">
-        <button 
-          onClick={onMenuToggle}
-          className="neu-icon-btn mr-2"
-          title="Open Menu"
-        >
-          <i className="fas fa-bars text-sm"></i>
-        </button>
-        <div className="ml-2 flex items-center min-w-0 flex-1">
-          <div className="p-1.5 neu-logo-box dark:bg-white rounded-xl mr-2" data-logo-box="nec">
-            <img 
-              src="/nec-logo.png" 
-              alt="NEC Logo" 
-              className="w-6 h-6 object-contain"
-            />
+      {user.role === 'STUDENT' ? (
+        <>
+          {/* Mobile & Desktop Student Campus Connect Header */}
+          <div className="flex items-center space-x-2">
+            <button 
+              onClick={onMenuToggle}
+              className="neu-icon-btn md:hidden text-slate-600 dark:text-slate-300"
+              title="Open Menu"
+            >
+              <i className="fas fa-bars text-sm"></i>
+            </button>
+            <button
+              onClick={() => setShowProfile(!showProfile)}
+              className="w-10 h-10 rounded-full neu-icon-btn text-blue-600 dark:text-blue-400 flex items-center justify-center transition-transform active:scale-95"
+              title="My Profile"
+            >
+              <i className="fas fa-user-circle text-2xl text-blue-600 dark:text-blue-400"></i>
+            </button>
           </div>
-          <span className="font-extrabold text-slate-800 dark:text-white text-sm truncate">CollegeFlow</span>
-        </div>
-      </div>
-      
-      {/* Desktop Header */}
-      <div className="hidden md:flex items-center space-x-3">
-        <div className="p-1.5 neu-logo-box dark:bg-white rounded-xl" data-logo-box="nec">
-          <img 
-            src="/nec-logo.png" 
-            alt="NEC Logo" 
-            className="w-7 h-7 object-contain"
-          />
-        </div>
-        <div className="neu-pill-inset text-[11px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300">
-          <span className="w-2 h-2 rounded-full bg-indigo-500 mr-2 animate-pulse"></span>
-          Role: <span className="text-indigo-600 dark:text-indigo-400 ml-1">{user.role}</span>
-        </div>
-      </div>
+
+          <div className="flex-1 text-center px-2">
+            <span className="text-lg sm:text-2xl font-black text-blue-600 dark:text-blue-400 tracking-wider uppercase">
+              CAMPUS CONNECT
+            </span>
+          </div>
+        </>
+      ) : (
+        <>
+          {/* Mobile Header */}
+          <div className="flex items-center md:hidden flex-1 min-w-0">
+            <button 
+              onClick={onMenuToggle}
+              className="neu-icon-btn mr-2"
+              title="Open Menu"
+            >
+              <i className="fas fa-bars text-sm"></i>
+            </button>
+            <div className="ml-2 flex items-center min-w-0 flex-1">
+              <div className="p-1.5 neu-logo-box dark:bg-white rounded-xl mr-2" data-logo-box="nec">
+                <img 
+                  src="/nec-logo.png" 
+                  alt="NEC Logo" 
+                  className="w-6 h-6 object-contain"
+                />
+              </div>
+              <span className="font-extrabold text-slate-800 dark:text-white text-sm truncate">CollegeFlow</span>
+            </div>
+          </div>
+          
+          {/* Desktop Header */}
+          <div className="hidden md:flex items-center space-x-3">
+            <div className="p-1.5 neu-logo-box dark:bg-white rounded-xl" data-logo-box="nec">
+              <img 
+                src="/nec-logo.png" 
+                alt="NEC Logo" 
+                className="w-7 h-7 object-contain"
+              />
+            </div>
+            <div className="neu-pill-inset text-[11px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+              <span className="w-2 h-2 rounded-full bg-indigo-500 mr-2 animate-pulse"></span>
+              Role: <span className="text-indigo-600 dark:text-indigo-400 ml-1">{user.role}</span>
+            </div>
+          </div>
+        </>
+      )}
 
       <div className="flex items-center space-x-2 sm:space-x-3">
         <button 
@@ -348,10 +378,10 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
         <div className="relative" ref={notificationRef}>
           <button 
             onClick={() => setShowNotifications(!showNotifications)}
-            className="neu-icon-btn relative"
+            className={`neu-icon-btn relative ${user.role === 'STUDENT' ? 'text-blue-600 dark:text-blue-400' : ''}`}
             title="Notifications"
           >
-            <i className="fas fa-bell text-base"></i>
+            <i className={`fas fa-bell text-base ${user.role === 'STUDENT' ? 'text-blue-600 dark:text-blue-400' : ''}`}></i>
             {unreadCount > 0 && (
               <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-rose-500 text-white text-[9px] font-black rounded-full flex items-center justify-center border border-white dark:border-slate-900">
                 {unreadCount > 9 ? '9+' : unreadCount}
@@ -744,6 +774,16 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
             </div>
           )}
         </div>
+
+        {onLogout && (
+          <button
+            onClick={onLogout}
+            className="neu-icon-btn text-rose-500 hover:text-rose-600 transition-transform active:scale-95 ml-1"
+            title="Sign Out"
+          >
+            <i className="fas fa-arrow-right-from-bracket text-base text-rose-500"></i>
+          </button>
+        )}
       </div>
 
       {/* Settings Dropdown */}
