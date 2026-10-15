@@ -461,7 +461,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#e4ebf5] dark:bg-[#0f1219] text-slate-800 dark:text-slate-100 transition-colors duration-300 overflow-x-hidden max-w-full">
+    <div className="flex h-screen h-[100dvh] w-full bg-[#e4ebf5] dark:bg-[#0f1219] text-slate-800 dark:text-slate-100 transition-colors duration-300 overflow-hidden max-w-full">
       <Sidebar 
         user={currentUser!} 
         activeTab={activeTab} 
@@ -470,16 +470,16 @@ const App: React.FC = () => {
         onClose={() => setIsSidebarOpen(false)}
       />
       
-      <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden max-w-full">
+      <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden max-w-full min-h-0">
         <TopBar 
-        user={currentUser!} 
-        isDarkMode={isDarkMode} 
-        onToggleDark={toggleDarkMode}
-        onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)}
-        onLogout={handleLogout}
-      />
+          user={currentUser!} 
+          isDarkMode={isDarkMode} 
+          onToggleDark={toggleDarkMode}
+          onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+          onLogout={handleLogout}
+        />
         {isSyncing && (
-          <div className="h-1 bg-[#d8e2ef] dark:bg-[#1c212e] neu-inset-sm overflow-hidden sticky top-16 z-20">
+          <div className="h-1 bg-[#d8e2ef] dark:bg-[#1c212e] neu-inset-sm overflow-hidden flex-shrink-0 z-20">
             <div className="h-full bg-gradient-to-r from-indigo-500 to-purple-600 animate-progress origin-left"></div>
           </div>
         )}
@@ -492,10 +492,10 @@ const App: React.FC = () => {
           />
         )}
 
-        <main className="flex-1 p-2.5 sm:p-4 md:p-6 lg:p-8 overflow-y-auto overflow-x-hidden">
+        <main className="flex-1 p-2.5 sm:p-4 md:p-6 lg:p-8 overflow-y-auto overflow-x-hidden min-h-0">
           {renderContent()}
+          <div className="h-4 sm:h-8"></div>
         </main>
-        <div className="h-4 sm:h-8"></div>
       </div>
       <style>{`
         @keyframes progress {

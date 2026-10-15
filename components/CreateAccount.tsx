@@ -141,14 +141,14 @@ const CreateAccount: React.FC<CreateAccountProps> = ({ onAccountCreated, onBack,
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#e4ebf5] dark:bg-[#0f1219] text-slate-800 dark:text-slate-100 p-2.5 sm:p-6 lg:p-8 relative overflow-hidden transition-colors duration-300">
+    <div className="min-h-screen min-h-[100dvh] w-full flex flex-col bg-[#e4ebf5] dark:bg-[#0f1219] text-slate-800 dark:text-slate-100 p-0 sm:p-6 lg:p-8 relative overflow-x-hidden transition-colors duration-300">
       {/* Ambient background depth blobs */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 dark:bg-indigo-500/15 rounded-full blur-3xl -mr-24 -mt-24 pointer-events-none"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 dark:bg-purple-500/15 rounded-full blur-3xl -ml-24 -mb-24 pointer-events-none"></div>
 
-      <div className="flex-1 flex items-center justify-center my-2 sm:my-8">
-        <div className="w-full max-w-4xl lg:max-w-5xl flex flex-col gap-6 relative z-10 px-0 sm:px-2">
-          <div className="neu-card p-4 sm:p-8 md:p-12 animate-fade-in relative">
+      <div className="flex-1 flex flex-col sm:items-center sm:justify-center w-full my-0 sm:my-8 min-h-screen sm:min-h-0 min-h-[100dvh]">
+        <div className="w-full sm:max-w-4xl lg:max-w-5xl flex-1 sm:flex-initial flex flex-col relative z-10 px-0 sm:px-2">
+          <div className="neu-card flex-1 sm:flex-initial flex flex-col rounded-none sm:rounded-3xl border-0 sm:border shadow-none sm:shadow-neu-flat p-4 sm:p-8 md:p-12 min-h-screen sm:min-h-0 min-h-[100dvh] overflow-y-auto animate-fade-in relative">
             {/* Header with Navigation */}
             <div className="flex justify-between items-center mb-5 sm:mb-6">
               <div className="flex items-center gap-2">
@@ -160,7 +160,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({ onAccountCreated, onBack,
                   <i className="fas fa-arrow-left"></i>
                 </button>
                 <div 
-                  className="neu-icon-btn !w-9 !h-9 sm:!w-11 sm:!h-11 !p-1.5 flex items-center justify-center dark:bg-white rounded-xl shadow-sm cursor-default" 
+                  className="neu-icon-btn !w-9 !h-9 sm:!w-11 sm:!h-11 !p-1.5 flex items-center justify-center dark:bg-white rounded-xl shadow-sm cursor-default overflow-hidden" 
                   data-logo-box="company"
                   title="RANBIDGE Solutions Private Limited"
                 >
@@ -168,6 +168,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({ onAccountCreated, onBack,
                     src="/RANBIDGE-Solutions-PVT-LTD-Logo.png" 
                     alt="RANBIDGE Solutions" 
                     className="w-full h-full object-contain" 
+                    style={{ transform: 'scale(1.45)' }}
                   />
                 </div>
               </div>

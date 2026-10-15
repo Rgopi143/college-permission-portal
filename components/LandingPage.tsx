@@ -11,11 +11,11 @@ interface LandingPageProps {
 
 const LandingPage: React.FC<LandingPageProps> = ({ onSelectAction, onLoginClick, isDarkMode, onToggleDark }) => {
   return (
-    <div className="min-h-screen bg-[#e4ebf5] dark:bg-[#0f1219] text-slate-800 dark:text-slate-100 flex flex-col transition-colors duration-300">
+    <div className="min-h-screen min-h-[100dvh] w-full bg-[#e4ebf5] dark:bg-[#0f1219] text-slate-800 dark:text-slate-100 flex flex-col transition-colors duration-300 overflow-x-hidden">
       <header className="p-5 md:px-10 flex justify-between items-center neu-flat sticky top-0 z-20">
         <div className="flex items-center space-x-2.5 sm:space-x-3.5">
           <div 
-            className="p-1.5 sm:p-2 neu-logo-box dark:bg-white rounded-2xl cursor-default" 
+            className="p-1.5 sm:p-2 neu-logo-box dark:bg-white rounded-2xl cursor-default overflow-hidden flex items-center justify-center" 
             data-logo-box="company"
             title="RANBIDGE Solutions Private Limited"
           >
@@ -23,6 +23,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSelectAction, onLoginClick,
               src="/RANBIDGE-Solutions-PVT-LTD-Logo.png" 
               alt="RANBIDGE Solutions" 
               className="w-8 h-8 sm:w-9 sm:h-9 object-contain" 
+              style={{ transform: 'scale(1.45)' }}
             />
           </div>
           <div className="p-2 neu-logo-box dark:bg-white rounded-2xl" data-logo-box="nec">

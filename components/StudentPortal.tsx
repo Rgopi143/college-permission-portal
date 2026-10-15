@@ -336,7 +336,7 @@ const StudentPortal: React.FC<StudentPortalProps> = ({
             </div>
           ) : (
             <div className="neu-inset-sm p-5 sm:p-6 rounded-2xl text-center flex flex-col items-center justify-center">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-200/60 dark:bg-slate-800 flex items-center justify-center text-slate-400 dark:text-slate-500 mb-2">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-2 border-slate-300 dark:border-slate-600 bg-slate-200/50 dark:bg-slate-800/80 flex items-center justify-center text-slate-400 dark:text-slate-400 mb-2 shadow-sm">
                 <i className="fas fa-info text-sm"></i>
               </div>
               <p className="text-sm font-bold text-slate-700 dark:text-slate-200">

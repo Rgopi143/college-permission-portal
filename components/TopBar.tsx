@@ -301,21 +301,14 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
   };
 
   return (
-    <header className="h-16 neu-flat px-2 sm:px-4 md:px-8 flex items-center justify-between sticky top-0 z-30 transition-colors">
+    <header className="h-16 flex-shrink-0 w-full neu-flat px-2 sm:px-4 md:px-8 flex items-center justify-between sticky top-0 z-30 transition-colors">
       {user.role === 'STUDENT' ? (
         <>
           {/* Mobile & Desktop Student Campus Connect Header */}
           <div className="flex items-center space-x-2 flex-shrink-0">
-            <button 
-              onClick={onMenuToggle}
-              className="neu-icon-btn lg:hidden text-slate-600 dark:text-slate-300 !w-9 !h-9 sm:!w-11 sm:!h-11"
-              title="Open Menu"
-            >
-              <i className="fas fa-bars text-xs sm:text-sm"></i>
-            </button>
-            <div className="hidden sm:flex items-center space-x-2">
+            <div className="flex items-center space-x-2">
               <div 
-                className="p-1 neu-logo-box dark:bg-white rounded-xl cursor-default" 
+                className="p-1 neu-logo-box dark:bg-white rounded-xl cursor-default overflow-hidden flex items-center justify-center" 
                 data-logo-box="company"
                 title="RANBIDGE Solutions Private Limited"
               >
@@ -323,6 +316,7 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
                   src="/RANBIDGE-Solutions-PVT-LTD-Logo.png" 
                   alt="RANBIDGE Solutions" 
                   className="w-6 h-6 object-contain"
+                  style={{ transform: 'scale(1.45)' }}
                 />
               </div>
               <div className="p-1 neu-logo-box dark:bg-white rounded-xl" data-logo-box="nec">
@@ -345,14 +339,19 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
         <>
           {/* Mobile Header */}
           <div className="flex items-center lg:hidden flex-1 min-w-0 mr-1 sm:mr-2">
-            <button 
-              onClick={onMenuToggle}
-              className="neu-icon-btn mr-1.5 sm:mr-2 flex-shrink-0 !w-9 !h-9 sm:!w-11 sm:!h-11"
-              title="Open Menu"
-            >
-              <i className="fas fa-bars text-xs sm:text-sm"></i>
-            </button>
             <div className="flex items-center min-w-0">
+              <div 
+                className="p-1 neu-logo-box dark:bg-white rounded-xl mr-1.5 sm:mr-2 flex-shrink-0 overflow-hidden flex items-center justify-center" 
+                data-logo-box="company"
+                title="RANBIDGE Solutions Private Limited"
+              >
+                <img 
+                  src="/RANBIDGE-Solutions-PVT-LTD-Logo.png" 
+                  alt="RANBIDGE Solutions" 
+                  className="w-5 h-5 sm:w-6 sm:h-6 object-contain" 
+                  style={{ transform: 'scale(1.45)' }}
+                />
+              </div>
               <div className="p-1 neu-logo-box dark:bg-white rounded-xl mr-1.5 sm:mr-2 flex-shrink-0" data-logo-box="nec">
                 <img 
                   src="/nec-logo.png" 
@@ -367,7 +366,7 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
           {/* Desktop Header */}
           <div className="hidden lg:flex items-center space-x-3">
             <div 
-              className="p-1.5 neu-logo-box dark:bg-white rounded-xl cursor-default" 
+              className="p-1.5 neu-logo-box dark:bg-white rounded-xl cursor-default overflow-hidden flex items-center justify-center" 
               data-logo-box="company"
               title="RANBIDGE Solutions Private Limited"
             >
@@ -375,6 +374,7 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
                 src="/RANBIDGE-Solutions-PVT-LTD-Logo.png" 
                 alt="RANBIDGE Solutions" 
                 className="w-7 h-7 object-contain"
+                style={{ transform: 'scale(1.45)' }}
               />
             </div>
             <div className="p-1.5 neu-logo-box dark:bg-white rounded-xl" data-logo-box="nec">
