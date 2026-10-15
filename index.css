@@ -91,6 +91,8 @@
 html {
   color-scheme: light;
   background-color: var(--neu-bg);
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 html.dark {
@@ -104,6 +106,8 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
   min-height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* =========================================================
@@ -293,6 +297,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
 }

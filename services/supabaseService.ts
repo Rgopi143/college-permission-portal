@@ -92,77 +92,122 @@ export class SupabaseService {
       branch: row.branch,
       year: row.year,
       mentorId: row.mentor_id,
-      studentId: row.student_id || (row.role === 'STUDENT' ? row.id : undefined)
+      studentId: row.student_id || (row.role === 'STUDENT' ? row.id : undefined),
+      password_hash: row.password_hash,
+      phone: row.phone,
+      date_of_birth: row.date_of_birth,
+      gender: row.gender,
+      blood_group: row.blood_group,
+      address: row.address,
+      city: row.city,
+      state: row.state,
+      postal_code: row.postal_code,
+      emergency_contact_name: row.emergency_contact_name,
+      emergency_contact_phone: row.emergency_contact_phone,
+      emergency_contact_relation: row.emergency_contact_relation
     };
   }
 
   async fetchRequests(): Promise<WorkflowRequest[]> {
     if (!SupabaseService.client) return [];
-    const { data, error } = await SupabaseService.client
-      .from('requests')
-      .select('*')
-      .order('created_at', { ascending: false });
-    
-    if (error) {
-      console.error("Error fetching requests:", error);
+    try {
+      const { data, error } = await SupabaseService.client
+        .from('requests')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) {
+        console.error("Error fetching requests:", error);
+        return [];
+      }
+      return (data || []).map(row => this.mapRequestFromDb(row));
+    } catch (e) {
+      console.warn("fetchRequests network error:", e);
       return [];
     }
-    return (data || []).map(row => this.mapRequestFromDb(row));
   }
 
   async fetchUsers(): Promise<User[]> {
     if (!SupabaseService.client) return [];
-    const { data, error } = await SupabaseService.client
-      .from('users')
-      .select('*');
-    
-    if (error) {
-      console.error("Error fetching users:", error);
+    try {
+      const { data, error } = await SupabaseService.client
+        .from('users')
+        .select('*');
+      
+      if (error) {
+        console.error("Error fetching users:", error);
+        return [];
+      }
+      return (data || []).map(row => this.mapUserFromDb(row));
+    } catch (e) {
+      console.warn("fetchUsers network error:", e);
       return [];
     }
-    return (data || []).map(row => this.mapUserFromDb(row));
   }
 
-  async getUserById(id: string): Promise<User | null> {
+  async getUserById(idOrEmail: string): Promise<User | null> {
     if (!SupabaseService.client) return null;
-    const { data, error } = await SupabaseService.client
-      .from('users')
-      .select('*')
-      .eq('id', id)
-      .single();
-    
-    if (error || !data) return null;
-    return this.mapUserFromDb(data);
+    const clean = idOrEmail.trim();
+    try {
+      // Try search by id, email, or student_id
+      const { data, error } = await SupabaseService.client
+        .from('users')
+        .select('*')
+        .or(`id.ilike.${clean},email.ilike.${clean},student_id.ilike.${clean}`)
+        .maybeSingle();
+      
+      if (data && !error) {
+        return this.mapUserFromDb(data);
+      }
+
+      // Fallback exact match
+      const fallbackRes = await SupabaseService.client
+        .from('users')
+        .select('*')
+        .eq('id', clean)
+        .maybeSingle();
+
+      if (fallbackRes.data) {
+        return this.mapUserFromDb(fallbackRes.data);
+      }
+      return null;
+    } catch (e) {
+      console.warn("getUserById network error:", e);
+      return null;
+    }
   }
 
   async upsertRequest(request: WorkflowRequest): Promise<void> {
     if (!SupabaseService.client) return;
-    const { error } = await SupabaseService.client
-      .from('requests')
-      .upsert({
-        id: request.id,
-        student_name: request.studentName,
-        roll_no: request.rollNo,
-        student_id: request.studentId, // Storing new field
-        email: request.email,
-        branch: request.branch,
-        type: request.type,
-        reason: request.reason,
-        status: request.status,
-        current_step: request.currentStep,
-        created_at: request.createdAt,
-        arrival_time: request.arrivalTime,
-        date: request.date,
-        logs: request.logs
-      });
-    
-    if (error) console.error("Error upserting request:", error);
+    try {
+      const { error } = await SupabaseService.client
+        .from('requests')
+        .upsert({
+          id: request.id,
+          student_name: request.studentName,
+          roll_no: request.rollNo,
+          student_id: request.studentId, // Storing new field
+          email: request.email,
+          branch: request.branch,
+          type: request.type,
+          reason: request.reason,
+          status: request.status,
+          current_step: request.currentStep,
+          created_at: request.createdAt,
+          arrival_time: request.arrivalTime,
+          date: request.date,
+          logs: request.logs
+        });
+      
+      if (error) console.error("Error upserting request:", error);
+    } catch (e) {
+      console.warn("upsertRequest error:", e);
+    }
   }
 
   async upsertUser(user: User): Promise<void> {
     if (!SupabaseService.client) return;
     
-    // For new students, set default password
     const userData: any = {
       id: user.id,
       name: user.name,
@@ -171,19 +216,30 @@ export class SupabaseService {
       branch: user.branch,
       year: user.year,
       mentor_id: user.mentorId,
-      student_id: user.studentId
+      student_id: user.studentId || (user.role === 'STUDENT' ? user.id : undefined),
+      password_hash: user.password_hash || (user.role === 'STUDENT' ? 'technoelite@2025' : undefined),
+      phone: user.phone,
+      date_of_birth: user.date_of_birth,
+      gender: user.gender,
+      blood_group: user.blood_group,
+      address: user.address,
+      city: user.city,
+      state: user.state,
+      postal_code: user.postal_code,
+      emergency_contact_name: user.emergency_contact_name,
+      emergency_contact_phone: user.emergency_contact_phone,
+      emergency_contact_relation: user.emergency_contact_relation
     };
     
-    // Add default password for new students
-    if (user.role === 'STUDENT') {
-      userData.password_hash = 'technoelite@2025'; // Default password
+    try {
+      const { error } = await SupabaseService.client
+        .from('users')
+        .upsert(userData);
+      
+      if (error) console.error("Error upserting user:", error);
+    } catch (e) {
+      console.warn("upsertUser error:", e);
     }
-    
-    const { error } = await SupabaseService.client
-      .from('users')
-      .upsert(userData);
-    
-    if (error) console.error("Error upserting user:", error);
   }
 
   async reassignMentor(studentIds: string[], newMentorId: string): Promise<void> {

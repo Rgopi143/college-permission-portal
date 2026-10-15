@@ -341,24 +341,24 @@ const StudentManagement: React.FC<StudentManagementProps> = ({ students, mentors
         </div>
       )}
 
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Department Control</h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium">HOD Panel • Student & Mentor Mapping</p>
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Department Control</h1>
+          <p className="text-slate-500 dark:text-slate-400 mt-0.5 sm:mt-1 font-medium text-xs sm:text-sm">HOD Panel • Student & Mentor Mapping</p>
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           {selectedIds.size > 0 && (
             <button
               onClick={() => setShowReassignModal(true)}
-              className="bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/30 hover:bg-indigo-100 px-6 py-3 rounded-xl font-bold transition-all flex items-center"
+              className="bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/30 hover:bg-indigo-100 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-bold transition-all flex items-center text-xs sm:text-sm"
             >
               <i className="fas fa-arrows-rotate mr-2"></i>
-              Transfer Mentor ({selectedIds.size})
+              Transfer ({selectedIds.size})
             </button>
           )}
           <button
             onClick={() => setShowAddForm(!showAddForm)}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-indigo-100 dark:shadow-none transition-all active:scale-95 flex items-center"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-bold shadow-lg shadow-indigo-100 dark:shadow-none transition-all active:scale-95 flex items-center text-xs sm:text-sm"
           >
             <i className={`fas ${showAddForm ? 'fa-times' : 'fa-plus'} mr-2`}></i>
             {showAddForm ? 'Cancel' : 'New Admission'}
@@ -367,7 +367,7 @@ const StudentManagement: React.FC<StudentManagementProps> = ({ students, mentors
       </div>
 
       {showAddForm && (
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-xl animate-slide-down">
+        <div className="bg-white dark:bg-slate-900 p-4 sm:p-8 rounded-2xl sm:rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-xl animate-slide-down">
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
               <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest ml-1">Full Name</label>
@@ -408,7 +408,7 @@ const StudentManagement: React.FC<StudentManagementProps> = ({ students, mentors
         </div>
       )}
 
-      <div className="bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-[3rem] border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
         {selectedIds.size > 0 && (
           <div className="px-4 sm:px-8 py-4 bg-indigo-50 dark:bg-indigo-900/20 border-b border-indigo-100 dark:border-indigo-900/30 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center space-x-4">

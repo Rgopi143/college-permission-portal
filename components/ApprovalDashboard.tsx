@@ -43,45 +43,45 @@ const ApprovalDashboard: React.FC<ApprovalDashboardProps> = ({ user, requests, o
 
   return (
     <div className="space-y-8 animate-fade-in">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6">
         <div>
-          <h1 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-white tracking-tight">
             {user.role} <span className="text-indigo-600 dark:text-indigo-400">Verification</span>
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium">
+          <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium text-xs sm:text-sm">
             Managing {user.branch || 'Departmental'} clearance queue and audit compliance.
           </p>
         </div>
         
-        <div className="neu-tabs-bar">
+        <div className="neu-tabs-bar w-full sm:w-auto flex">
           <button
             onClick={() => setActiveTab('queue')}
-            className={`neu-tab-btn ${activeTab === 'queue' ? 'active' : ''}`}
+            className={`neu-tab-btn flex-1 sm:flex-none text-center ${activeTab === 'queue' ? 'active' : ''}`}
           >
-            <i className="fas fa-layer-group mr-2"></i> Active Queue ({stats.todo})
+            <i className="fas fa-layer-group mr-1.5 sm:mr-2"></i> Active Queue ({stats.todo})
           </button>
           <button
             onClick={() => setActiveTab('history')}
-            className={`neu-tab-btn ${activeTab === 'history' ? 'active' : ''}`}
+            className={`neu-tab-btn flex-1 sm:flex-none text-center ${activeTab === 'history' ? 'active' : ''}`}
           >
-            <i className="fas fa-clipboard-check mr-2"></i> My Decisions ({stats.done})
+            <i className="fas fa-clipboard-check mr-1.5 sm:mr-2"></i> My Decisions ({stats.done})
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
         {[
           { label: 'My Action List', val: stats.todo, color: 'text-indigo-600 dark:text-indigo-400', icon: 'fa-hourglass-half' },
           { label: 'My Total Verified', val: stats.done, color: 'text-emerald-600 dark:text-emerald-400', icon: 'fa-check-circle' },
           { label: 'Total In-Flow', val: stats.globalActive, color: 'text-amber-500 dark:text-amber-400', icon: 'fa-rotate' },
           { label: 'Total Verified', val: stats.globalComplete, color: 'text-blue-500 dark:text-blue-400', icon: 'fa-database' }
         ].map((s, i) => (
-          <div key={i} className="neu-stat-box">
-             <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">{s.label}</p>
+          <div key={i} className="neu-stat-box p-4 sm:p-6">
+             <p className="text-[9px] sm:text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1 sm:mb-1.5 truncate">{s.label}</p>
              <div className="flex items-center justify-between">
-                <span className={`text-3xl font-black ${s.color}`}>{s.val}</span>
-                <div className="w-10 h-10 neu-flat-sm rounded-xl flex items-center justify-center text-slate-500">
-                  <i className={`fas ${s.icon} text-base`}></i>
+                <span className={`text-2xl sm:text-3xl font-black ${s.color}`}>{s.val}</span>
+                <div className="w-8 h-8 sm:w-10 sm:h-10 neu-flat-sm rounded-xl flex items-center justify-center text-slate-500 flex-shrink-0">
+                  <i className={`fas ${s.icon} text-sm sm:text-base`}></i>
                 </div>
              </div>
           </div>

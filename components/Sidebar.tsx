@@ -44,21 +44,28 @@ const Sidebar: React.FC<SidebarProps> = ({ user, activeTab, onTabChange, isOpen,
         />
       )}
       
-      <aside className={`fixed lg:relative w-64 bg-[#e4ebf5] dark:bg-[#13161f] text-slate-800 dark:text-slate-100 flex-shrink-0 flex flex-col transition-all duration-300 ease-in-out transform neu-flat z-50 h-screen lg:h-auto border-r border-transparent ${
+      <aside className={`fixed lg:relative w-64 bg-[#e4ebf5] dark:bg-[#13161f] text-slate-800 dark:text-slate-100 flex-shrink-0 flex flex-col transition-all duration-300 ease-in-out transform neu-flat z-50 h-screen lg:h-auto border-r border-transparent overflow-y-auto ${
         isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       }`}>
-        <div className="p-6 border-b border-slate-300/40 dark:border-slate-800/80 flex items-center">
+        <div className="p-5 sm:p-6 border-b border-slate-300/40 dark:border-slate-800/80 flex items-center justify-between">
           <div className="flex items-center space-x-3.5">
-            <div className="w-11 h-11 neu-flat-sm rounded-2xl flex items-center justify-center text-indigo-600 dark:text-indigo-400">
-              <i className="fas fa-graduation-cap text-xl"></i>
+            <div className="w-10 h-10 sm:w-11 sm:h-11 neu-flat-sm rounded-2xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0">
+              <i className="fas fa-graduation-cap text-lg sm:text-xl"></i>
             </div>
             <div>
-              <span className="text-xl font-black tracking-tight text-slate-800 dark:text-white block leading-none">
+              <span className="text-lg sm:text-xl font-black tracking-tight text-slate-800 dark:text-white block leading-none">
                 CollegeFlow
               </span>
               <span className="text-[9px] font-bold text-slate-500 uppercase tracking-wider">NEC Portal</span>
             </div>
           </div>
+          <button
+            onClick={onClose}
+            className="lg:hidden w-8 h-8 rounded-xl neu-icon-btn text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white flex items-center justify-center flex-shrink-0"
+            title="Close Menu"
+          >
+            <i className="fas fa-times text-xs"></i>
+          </button>
         </div>
       
       <nav className="flex-1 mt-6 px-4 space-y-2.5">

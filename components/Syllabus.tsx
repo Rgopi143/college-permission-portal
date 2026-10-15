@@ -279,7 +279,7 @@ const Syllabus: React.FC<SyllabusProps> = ({ user }) => {
     try {
       const materialData = {
         ...newMaterial,
-        created_by: user.id,
+        uploaded_by: user.id,
         uploaded_at: new Date().toISOString()
       };
       
@@ -376,38 +376,38 @@ const Syllabus: React.FC<SyllabusProps> = ({ user }) => {
   });
 
   return (
-    <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Syllabus Materials</h1>
-        <p className="text-slate-600 dark:text-slate-400">Access course materials, syllabus, and study resources</p>
+    <div className="space-y-5 sm:space-y-6">
+      <div>
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1 sm:mb-2">Syllabus Materials</h1>
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Access course materials, syllabus, and study resources</p>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
-          <div className="text-2xl font-bold text-slate-900 dark:text-white">{stats.total}</div>
-          <div className="text-sm text-slate-600 dark:text-slate-400">Total Materials</div>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl p-3.5 sm:p-4 border border-slate-200 dark:border-slate-700">
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">{stats.total}</div>
+          <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Total Materials</div>
         </div>
-        <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
-          <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">{stats.recent}</div>
-          <div className="text-sm text-slate-600 dark:text-slate-400">Added This Week</div>
+        <div className="bg-white dark:bg-slate-800 rounded-xl p-3.5 sm:p-4 border border-slate-200 dark:border-slate-700">
+          <div className="text-xl sm:text-2xl font-bold text-indigo-600 dark:text-indigo-400">{stats.recent}</div>
+          <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Added This Week</div>
         </div>
-        <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
-          <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+        <div className="bg-white dark:bg-slate-800 rounded-xl p-3.5 sm:p-4 border border-slate-200 dark:border-slate-700">
+          <div className="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400">
             {Object.keys(stats.bySubject).length}
           </div>
-          <div className="text-sm text-slate-600 dark:text-slate-400">Subjects</div>
+          <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Subjects</div>
         </div>
-        <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
-          <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+        <div className="bg-white dark:bg-slate-800 rounded-xl p-3.5 sm:p-4 border border-slate-200 dark:border-slate-700">
+          <div className="text-xl sm:text-2xl font-bold text-purple-600 dark:text-purple-400">
             {Object.keys(stats.byType).length}
           </div>
-          <div className="text-sm text-slate-600 dark:text-slate-400">File Types</div>
+          <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">File Types</div>
         </div>
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex space-x-1 mb-6 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+      <div className="flex space-x-1 mb-6 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg overflow-x-auto">
         <button
           onClick={() => setActiveTab('list')}
           className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${

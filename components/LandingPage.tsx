@@ -13,7 +13,18 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSelectAction, onLoginClick,
   return (
     <div className="min-h-screen bg-[#e4ebf5] dark:bg-[#0f1219] text-slate-800 dark:text-slate-100 flex flex-col transition-colors duration-300">
       <header className="p-5 md:px-10 flex justify-between items-center neu-flat sticky top-0 z-20">
-        <div className="flex items-center space-x-3.5">
+        <div className="flex items-center space-x-2.5 sm:space-x-3.5">
+          <div 
+            className="p-1.5 sm:p-2 neu-logo-box dark:bg-white rounded-2xl cursor-default" 
+            data-logo-box="company"
+            title="RANBIDGE Solutions Private Limited"
+          >
+            <img 
+              src="/RANBIDGE-Solutions-PVT-LTD-Logo.png" 
+              alt="RANBIDGE Solutions" 
+              className="w-8 h-8 sm:w-9 sm:h-9 object-contain" 
+            />
+          </div>
           <div className="p-2 neu-logo-box dark:bg-white rounded-2xl" data-logo-box="nec">
             <img 
               src="/nec-logo.png" 
@@ -118,16 +129,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSelectAction, onLoginClick,
           </div>
         </div>
       </main>
-
-      <footer className="p-6 text-center text-slate-500 dark:text-slate-400 text-xs neu-flat border-t border-transparent transition-colors mt-auto">
-        <div className="flex items-center justify-center space-x-3 mb-2">
-          <div className="p-1.5 neu-logo-box dark:bg-white rounded-xl" data-logo-box="company">
-            <img src="/RANBIDGE-Solutions-PVT-LTD-Logo.png" alt="RANBIDGE Solutions Private Limited Logo" className="h-10 w-auto object-contain" />
-          </div>
-          <span className="font-bold tracking-widest text-[10px] uppercase">RANBIDGE Solutions Private Limited</span>
-        </div>
-        <p>&copy; 2026 NEC Portal. All rights reserved.</p>
-      </footer>
     </div>
   );
 };

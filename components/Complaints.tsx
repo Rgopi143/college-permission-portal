@@ -125,6 +125,7 @@ const Complaints: React.FC<ComplaintsProps> = ({ user }) => {
       // Create complaint
       const result = await ComplaintService.createComplaint({
         student_id: user.id,
+        status: 'PENDING',
         ...newComplaint,
         evidence_files: evidenceUrls
       });
@@ -175,42 +176,42 @@ const Complaints: React.FC<ComplaintsProps> = ({ user }) => {
   };
 
   return (
-    <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Complaints & Feedback</h1>
-        <p className="text-slate-600 dark:text-slate-400">Submit and track your complaints and feedback</p>
+    <div className="space-y-5 sm:space-y-6">
+      <div>
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1 sm:mb-2">Complaints & Feedback</h1>
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Submit and track your complaints and feedback</p>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
-          <div className="text-2xl font-bold text-slate-900 dark:text-white">{stats.total}</div>
-          <div className="text-sm text-slate-600 dark:text-slate-400">Total</div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl p-3 sm:p-4 border border-slate-200 dark:border-slate-700">
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">{stats.total}</div>
+          <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Total</div>
         </div>
-        <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
-          <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{stats.pending}</div>
-          <div className="text-sm text-slate-600 dark:text-slate-400">Pending</div>
+        <div className="bg-white dark:bg-slate-800 rounded-xl p-3 sm:p-4 border border-slate-200 dark:border-slate-700">
+          <div className="text-xl sm:text-2xl font-bold text-yellow-600 dark:text-yellow-400">{stats.pending}</div>
+          <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Pending</div>
         </div>
-        <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
-          <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{stats.under_review}</div>
-          <div className="text-sm text-slate-600 dark:text-slate-400">Under Review</div>
+        <div className="bg-white dark:bg-slate-800 rounded-xl p-3 sm:p-4 border border-slate-200 dark:border-slate-700">
+          <div className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400">{stats.under_review}</div>
+          <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Under Review</div>
         </div>
-        <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
-          <div className="text-2xl font-bold text-green-600 dark:text-green-400">{stats.resolved}</div>
-          <div className="text-sm text-slate-600 dark:text-slate-400">Resolved</div>
+        <div className="bg-white dark:bg-slate-800 rounded-xl p-3 sm:p-4 border border-slate-200 dark:border-slate-700">
+          <div className="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400">{stats.resolved}</div>
+          <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Resolved</div>
         </div>
-        <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
-          <div className="text-2xl font-bold text-gray-600 dark:text-gray-400">{stats.closed}</div>
-          <div className="text-sm text-slate-600 dark:text-slate-400">Closed</div>
+        <div className="bg-white dark:bg-slate-800 rounded-xl p-3 sm:p-4 border border-slate-200 dark:border-slate-700">
+          <div className="text-xl sm:text-2xl font-bold text-gray-600 dark:text-gray-400">{stats.closed}</div>
+          <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Closed</div>
         </div>
-        <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
-          <div className="text-2xl font-bold text-red-600 dark:text-red-400">{stats.rejected}</div>
-          <div className="text-sm text-slate-600 dark:text-slate-400">Rejected</div>
+        <div className="bg-white dark:bg-slate-800 rounded-xl p-3 sm:p-4 border border-slate-200 dark:border-slate-700">
+          <div className="text-xl sm:text-2xl font-bold text-red-600 dark:text-red-400">{stats.rejected}</div>
+          <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Rejected</div>
         </div>
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex space-x-1 mb-6 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+      <div className="flex space-x-1 mb-6 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg overflow-x-auto">
         <button
           onClick={() => setActiveTab('list')}
           className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${

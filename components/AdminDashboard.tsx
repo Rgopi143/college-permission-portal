@@ -18,35 +18,35 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ requests, insight }) =>
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Neumorphic Live Monitor Header */}
-      <div className="neu-card p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
-        <div className="z-10 relative">
+      <div className="neu-card p-5 sm:p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-8 relative overflow-hidden">
+        <div className="z-10 relative w-full md:w-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 neu-pill-inset text-indigo-600 dark:text-indigo-400 text-[10px] font-black uppercase tracking-widest mb-3">
             <span className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></span>
             System Live Monitor
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-slate-800 dark:text-white leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight text-slate-800 dark:text-white leading-tight">
             Global Control
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-2 max-w-sm font-medium text-sm md:text-base leading-relaxed">
+          <p className="text-slate-500 dark:text-slate-400 mt-2 max-w-sm font-medium text-xs sm:text-sm md:text-base leading-relaxed">
             Cross-departmental monitoring of all college-wide workflow clearances.
           </p>
         </div>
-        <div className="flex gap-4 z-10 relative">
-          <div className="neu-inset-sm p-6 rounded-3xl w-36 text-center">
-            <p className="text-3xl md:text-4xl font-black mb-1 text-slate-800 dark:text-white">{stats.total}</p>
-            <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em]">All Logs</p>
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 z-10 relative w-full md:w-auto">
+          <div className="neu-inset-sm p-4 sm:p-6 rounded-2xl sm:rounded-3xl flex-1 md:w-36 text-center">
+            <p className="text-2xl sm:text-3xl md:text-4xl font-black mb-1 text-slate-800 dark:text-white">{stats.total}</p>
+            <p className="text-[9px] sm:text-[10px] text-slate-400 font-black uppercase tracking-[0.2em]">All Logs</p>
           </div>
-          <div className="neu-inset-sm p-6 rounded-3xl w-36 text-center">
-            <p className="text-3xl md:text-4xl font-black text-emerald-500 dark:text-emerald-400 mb-1">{stats.approved}</p>
-            <p className="text-[10px] text-emerald-600/70 dark:text-emerald-400/70 font-black uppercase tracking-[0.2em]">Verified</p>
+          <div className="neu-inset-sm p-4 sm:p-6 rounded-2xl sm:rounded-3xl flex-1 md:w-36 text-center">
+            <p className="text-2xl sm:text-3xl md:text-4xl font-black text-emerald-500 dark:text-emerald-400 mb-1">{stats.approved}</p>
+            <p className="text-[9px] sm:text-[10px] text-emerald-600/70 dark:text-emerald-400/70 font-black uppercase tracking-[0.2em]">Verified</p>
           </div>
         </div>
       </div>
 
       {/* AI Intelligent Trends */}
-      <div className="neu-card p-6 md:p-8 relative overflow-hidden">
+      <div className="neu-card p-4 sm:p-6 md:p-8 relative overflow-hidden">
         <div className="flex items-center space-x-3 mb-5">
-           <div className="w-10 h-10 neu-flat-sm text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center">
+           <div className="w-10 h-10 neu-flat-sm text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center flex-shrink-0">
              <i className="fas fa-brain text-base"></i>
            </div>
            <div>
@@ -56,8 +56,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ requests, insight }) =>
              <span className="text-[10px] text-slate-400 font-bold">Automated Trend Analysis</span>
            </div>
         </div>
-        <div className="neu-inset p-5 rounded-2xl">
-          <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-medium text-sm italic">
+        <div className="neu-inset p-4 sm:p-5 rounded-2xl">
+          <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-medium text-xs sm:text-sm italic">
             "{insight || "Synthesizing latest approval patterns to generate executive insights..."}"
           </p>
         </div>

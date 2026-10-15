@@ -52,6 +52,7 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
     ...user,
     phone: '+91 98765 43210',
     bio: '',
+    avatar_url: '',
     date_of_birth: '',
     gender: '',
     blood_group: '',
@@ -110,7 +111,7 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
 
   const handleProfileEdit = () => {
     setIsEditing(true);
-    setEditedUser({...user, phone: editedUser.phone || '+91 98765 43210'});
+    setEditedUser(prev => ({ ...prev, ...user, phone: prev.phone || '+91 98765 43210' }));
   };
 
   const handleSettings = () => {
@@ -257,6 +258,7 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
       ...user,
       phone: '+91 98765 43210',
       bio: '',
+      avatar_url: '',
       date_of_birth: '',
       gender: '',
       blood_group: '',
@@ -299,29 +301,42 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
   };
 
   return (
-    <header className="h-16 neu-flat px-3 sm:px-4 md:px-8 flex items-center justify-between sticky top-0 z-30 transition-colors">
+    <header className="h-16 neu-flat px-2 sm:px-4 md:px-8 flex items-center justify-between sticky top-0 z-30 transition-colors">
       {user.role === 'STUDENT' ? (
         <>
           {/* Mobile & Desktop Student Campus Connect Header */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 flex-shrink-0">
             <button 
               onClick={onMenuToggle}
-              className="neu-icon-btn md:hidden text-slate-600 dark:text-slate-300"
+              className="neu-icon-btn lg:hidden text-slate-600 dark:text-slate-300 !w-9 !h-9 sm:!w-11 sm:!h-11"
               title="Open Menu"
             >
-              <i className="fas fa-bars text-sm"></i>
+              <i className="fas fa-bars text-xs sm:text-sm"></i>
             </button>
-            <button
-              onClick={() => setShowProfile(!showProfile)}
-              className="w-10 h-10 rounded-full neu-icon-btn text-blue-600 dark:text-blue-400 flex items-center justify-center transition-transform active:scale-95"
-              title="My Profile"
-            >
-              <i className="fas fa-user-circle text-2xl text-blue-600 dark:text-blue-400"></i>
-            </button>
+            <div className="hidden sm:flex items-center space-x-2">
+              <div 
+                className="p-1 neu-logo-box dark:bg-white rounded-xl cursor-default" 
+                data-logo-box="company"
+                title="RANBIDGE Solutions Private Limited"
+              >
+                <img 
+                  src="/RANBIDGE-Solutions-PVT-LTD-Logo.png" 
+                  alt="RANBIDGE Solutions" 
+                  className="w-6 h-6 object-contain"
+                />
+              </div>
+              <div className="p-1 neu-logo-box dark:bg-white rounded-xl" data-logo-box="nec">
+                <img 
+                  src="/nec-logo.png" 
+                  alt="NEC Logo" 
+                  className="w-6 h-6 object-contain"
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="flex-1 text-center px-2">
-            <span className="text-lg sm:text-2xl font-black text-blue-600 dark:text-blue-400 tracking-wider uppercase">
+          <div className="flex-1 text-center px-1 sm:px-2 min-w-0">
+            <span className="text-sm sm:text-lg md:text-2xl font-black text-blue-600 dark:text-blue-400 tracking-wider uppercase truncate block">
               CAMPUS CONNECT
             </span>
           </div>
@@ -329,28 +344,39 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
       ) : (
         <>
           {/* Mobile Header */}
-          <div className="flex items-center md:hidden flex-1 min-w-0">
+          <div className="flex items-center lg:hidden flex-1 min-w-0 mr-1 sm:mr-2">
             <button 
               onClick={onMenuToggle}
-              className="neu-icon-btn mr-2"
+              className="neu-icon-btn mr-1.5 sm:mr-2 flex-shrink-0 !w-9 !h-9 sm:!w-11 sm:!h-11"
               title="Open Menu"
             >
-              <i className="fas fa-bars text-sm"></i>
+              <i className="fas fa-bars text-xs sm:text-sm"></i>
             </button>
-            <div className="ml-2 flex items-center min-w-0 flex-1">
-              <div className="p-1.5 neu-logo-box dark:bg-white rounded-xl mr-2" data-logo-box="nec">
+            <div className="flex items-center min-w-0">
+              <div className="p-1 neu-logo-box dark:bg-white rounded-xl mr-1.5 sm:mr-2 flex-shrink-0" data-logo-box="nec">
                 <img 
                   src="/nec-logo.png" 
                   alt="NEC Logo" 
-                  className="w-6 h-6 object-contain"
+                  className="w-5 h-5 sm:w-6 sm:h-6 object-contain"
                 />
               </div>
-              <span className="font-extrabold text-slate-800 dark:text-white text-sm truncate">CollegeFlow</span>
+              <span className="font-extrabold text-slate-800 dark:text-white text-xs sm:text-sm truncate">CollegeFlow</span>
             </div>
           </div>
           
           {/* Desktop Header */}
-          <div className="hidden md:flex items-center space-x-3">
+          <div className="hidden lg:flex items-center space-x-3">
+            <div 
+              className="p-1.5 neu-logo-box dark:bg-white rounded-xl cursor-default" 
+              data-logo-box="company"
+              title="RANBIDGE Solutions Private Limited"
+            >
+              <img 
+                src="/RANBIDGE-Solutions-PVT-LTD-Logo.png" 
+                alt="RANBIDGE Solutions" 
+                className="w-7 h-7 object-contain"
+              />
+            </div>
             <div className="p-1.5 neu-logo-box dark:bg-white rounded-xl" data-logo-box="nec">
               <img 
                 src="/nec-logo.png" 
@@ -366,24 +392,24 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
         </>
       )}
 
-      <div className="flex items-center space-x-2 sm:space-x-3">
+      <div className="flex items-center space-x-1.5 sm:space-x-2.5 flex-shrink-0">
         <button 
           onClick={onToggleDark}
-          className="neu-icon-btn"
+          className="neu-icon-btn !w-9 !h-9 sm:!w-11 sm:!h-11"
           title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
         >
-          <i className={`fas ${isDarkMode ? 'fa-sun text-amber-400' : 'fa-moon text-indigo-500'} text-base`}></i>
+          <i className={`fas ${isDarkMode ? 'fa-sun text-amber-400' : 'fa-moon text-indigo-500'} text-xs sm:text-base`}></i>
         </button>
 
         <div className="relative" ref={notificationRef}>
           <button 
             onClick={() => setShowNotifications(!showNotifications)}
-            className={`neu-icon-btn relative ${user.role === 'STUDENT' ? 'text-blue-600 dark:text-blue-400' : ''}`}
+            className={`neu-icon-btn !w-9 !h-9 sm:!w-11 sm:!h-11 relative ${user.role === 'STUDENT' ? 'text-blue-600 dark:text-blue-400' : ''}`}
             title="Notifications"
           >
-            <i className={`fas fa-bell text-base ${user.role === 'STUDENT' ? 'text-blue-600 dark:text-blue-400' : ''}`}></i>
+            <i className={`fas fa-bell text-xs sm:text-base ${user.role === 'STUDENT' ? 'text-blue-600 dark:text-blue-400' : ''}`}></i>
             {unreadCount > 0 && (
-              <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-rose-500 text-white text-[9px] font-black rounded-full flex items-center justify-center border border-white dark:border-slate-900">
+              <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] sm:min-w-[18px] sm:h-[18px] bg-rose-500 text-white text-[8px] sm:text-[9px] font-black rounded-full flex items-center justify-center border border-white dark:border-slate-900">
                 {unreadCount > 9 ? '9+' : unreadCount}
               </span>
             )}
@@ -391,7 +417,7 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
 
           {/* Notification Dropdown */}
           {showNotifications && (
-            <div className="absolute right-0 mt-3 w-80 max-w-[calc(100vw-2rem)] neu-card overflow-hidden z-50">
+            <div className="absolute right-0 mt-3 w-72 sm:w-80 max-w-[calc(100vw-1.5rem)] neu-card overflow-hidden z-50">
               {/* Header */}
               <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-4 text-white">
                 <div className="flex items-center justify-between">
@@ -470,20 +496,20 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
         <div className="relative" ref={profileRef}>
           <div 
             onClick={() => setShowProfile(!showProfile)}
-            className="flex items-center space-x-2.5 cursor-pointer neu-pill-inset p-1 sm:pl-3 transition-all hover:scale-[1.02]"
+            className="flex items-center space-x-2 sm:space-x-2.5 cursor-pointer neu-pill-inset p-1 sm:pl-3 transition-all hover:scale-[1.02] flex-shrink-0"
           >
             <div className="text-right hidden sm:block leading-tight">
               <p className="text-xs font-bold text-slate-800 dark:text-slate-100">{user.name}</p>
               <p className="text-[10px] text-slate-500 dark:text-slate-400">{user.role}</p>
             </div>
-            <div className="w-9 h-9 rounded-full neu-flat-sm overflow-hidden p-0.5 border border-white/60 dark:border-slate-700/60 flex items-center justify-center">
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full neu-flat-sm overflow-hidden p-0.5 border border-white/60 dark:border-slate-700/60 flex items-center justify-center flex-shrink-0">
                <img src={profileImage} alt="Avatar" className="w-full h-full rounded-full object-cover" />
             </div>
           </div>
 
           {/* Profile Dropdown */}
           {showProfile && (
-            <div className="absolute right-0 mt-3 w-80 max-w-[calc(100vw-2rem)] neu-card overflow-hidden z-50">
+            <div className="absolute right-0 mt-3 w-72 sm:w-80 max-w-[calc(100vw-1.5rem)] neu-card overflow-hidden z-50">
               {!isEditing ? (
                 <>
                   {/* Profile Header */}
@@ -778,17 +804,17 @@ const TopBar: React.FC<TopBarProps> = ({ user, isDarkMode, onToggleDark, onMenuT
         {onLogout && (
           <button
             onClick={onLogout}
-            className="neu-icon-btn text-rose-500 hover:text-rose-600 transition-transform active:scale-95 ml-1"
+            className="neu-icon-btn !w-9 !h-9 sm:!w-11 sm:!h-11 text-rose-500 hover:text-rose-600 transition-transform active:scale-95 ml-0.5 sm:ml-1 flex-shrink-0"
             title="Sign Out"
           >
-            <i className="fas fa-arrow-right-from-bracket text-base text-rose-500"></i>
+            <i className="fas fa-arrow-right-from-bracket text-xs sm:text-base text-rose-500"></i>
           </button>
         )}
       </div>
 
       {/* Settings Dropdown */}
       {showSettings && (
-        <div className="absolute right-0 w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden z-[60] max-h-[80vh]" style={{ top: '45px' }} ref={settingsRef}>
+        <div className="absolute right-2 sm:right-4 w-80 sm:w-96 max-w-[calc(100vw-1.5rem)] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden z-[60] max-h-[85vh] overflow-y-auto" style={{ top: '55px' }} ref={settingsRef}>
           {/* Settings Header */}
           <div className="bg-gradient-to-r from-slate-600 to-slate-700 p-6 text-white">
             <div className="flex items-center space-x-3">

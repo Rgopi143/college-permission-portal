@@ -633,6 +633,20 @@ VALUES (
     NOW()
 ) ON CONFLICT (email) DO NOTHING;
 
+-- Insert default student user (23471a4245@nrtec.in / password: CHINNU143)
+INSERT INTO users (id, email, password_hash, name, role, department, student_id, is_active, created_at) 
+VALUES (
+    uuid_generate_v4(),
+    '23471a4245@nrtec.in',
+    'CHINNU143',
+    'R Gopinath Reddy',
+    'STUDENT',
+    'CSE',
+    '23471A4245',
+    true,
+    NOW()
+) ON CONFLICT (email) DO NOTHING;
+
 -- Insert sample departments
 INSERT INTO departments (id, name, code, description, is_active, created_at) VALUES
     (uuid_generate_v4(), 'Computer Science', 'CS', 'Computer Science and Engineering Department', true, NOW()),

@@ -198,8 +198,8 @@ const CreativeHub: React.FC<CreativeHubProps> = ({ onNotify }) => {
           <div className="inline-flex items-center px-4 py-1.5 bg-white/10 rounded-full text-indigo-200 text-[10px] font-black uppercase tracking-widest mb-6 backdrop-blur-md">
             <i className="fas fa-sparkles mr-2 text-yellow-300"></i> Powered by Gemini 3 & Veo
           </div>
-          <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4">Creative Hub</h1>
-          <p className="text-indigo-200/70 text-lg font-medium max-w-xl">
+          <h1 className="text-2xl sm:text-4xl md:text-6xl font-black tracking-tight mb-2 sm:mb-4">Creative Hub</h1>
+          <p className="text-indigo-200/70 text-xs sm:text-sm md:text-lg font-medium max-w-xl">
             Generate stunning campus visuals and cinematic videos for your college presentations and events.
           </p>
         </div>
@@ -210,28 +210,28 @@ const CreativeHub: React.FC<CreativeHubProps> = ({ onNotify }) => {
       </div>
 
       {/* Tool Toggle */}
-      <div className="flex bg-white dark:bg-slate-900 p-2 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800 w-fit">
+      <div className="flex bg-white dark:bg-slate-900 p-1.5 sm:p-2 rounded-2xl sm:rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800 w-full sm:w-fit">
         <button
           onClick={() => setActiveTool('image')}
-          className={`px-10 py-4 rounded-[1.5rem] text-sm font-black uppercase tracking-widest transition-all ${
+          className={`flex-1 sm:flex-none px-4 sm:px-10 py-3 sm:py-4 rounded-xl sm:rounded-[1.5rem] text-xs sm:text-sm font-black uppercase tracking-wider sm:tracking-widest transition-all ${
             activeTool === 'image' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-none' : 'text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'
           }`}
         >
-          <i className="fas fa-image mr-3"></i> Image Gen
+          <i className="fas fa-image mr-2 sm:mr-3"></i> Image Gen
         </button>
         <button
           onClick={() => setActiveTool('video')}
-          className={`px-10 py-4 rounded-[1.5rem] text-sm font-black uppercase tracking-widest transition-all ${
+          className={`flex-1 sm:flex-none px-4 sm:px-10 py-3 sm:py-4 rounded-xl sm:rounded-[1.5rem] text-xs sm:text-sm font-black uppercase tracking-wider sm:tracking-widest transition-all ${
             activeTool === 'video' ? 'bg-purple-600 text-white shadow-lg shadow-purple-200 dark:shadow-none' : 'text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'
           }`}
         >
-          <i className="fas fa-video mr-3"></i> Veo Animate
+          <i className="fas fa-video mr-2 sm:mr-3"></i> Veo Animate
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-start">
         {/* Editor Side */}
-        <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 shadow-sm border border-slate-100 dark:border-slate-800">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-[2.5rem] p-5 sm:p-8 md:p-10 shadow-sm border border-slate-100 dark:border-slate-800">
           <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-8 flex items-center">
             <span className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mr-4">
               <i className={activeTool === 'image' ? "fas fa-magic" : "fas fa-film"}></i>

@@ -1,10 +1,9 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { User, UserRole, WorkflowRequest, RequestType, RequestStatus, WorkflowStep, AuditLog } from './types';
-import { MOCK_REQUESTS, YEARS, MOCK_MENTORS } from './constants';
+import { MOCK_REQUESTS, YEARS, MOCK_MENTORS, MOCK_STUDENTS } from './constants';
 import Sidebar from './components/Sidebar';
 import TopBar from './components/TopBar';
-import Footer from './components/Footer';
 import Login from './components/Login';
 import LandingPage from './components/LandingPage';
 import StudentPortal from './components/StudentPortal';
@@ -23,7 +22,7 @@ const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [view, setView] = useState<'landing' | 'login' | 'app'>('login');
   const [requests, setRequests] = useState<WorkflowRequest[]>([]);
-  const [students, setStudents] = useState<User[]>([]);
+  const [students, setStudents] = useState<User[]>(MOCK_STUDENTS);
   const [mentors, setMentors] = useState<User[]>(MOCK_MENTORS);
   const [activeTab, setActiveTab] = useState<string>('dashboard');
 
@@ -65,6 +64,26 @@ const App: React.FC = () => {
 
   const loadData = useCallback(async () => {
     setIsLoading(true);
+
+    // Initial base students from MOCK_STUDENTS + localStorage
+    const savedLocalUsersStr = localStorage.getItem('collegeflow_registered_users');
+    let localUsers: User[] = [];
+    if (savedLocalUsersStr) {
+      try {
+        localUsers = JSON.parse(savedLocalUsersStr);
+      } catch (e) {
+        console.error("Failed to parse local users", e);
+      }
+    }
+
+    const mergedStudents = [...MOCK_STUDENTS];
+    localUsers.forEach(lu => {
+      if (lu.role === UserRole.STUDENT && !mergedStudents.some(s => s.id.toLowerCase() === lu.id.toLowerCase() || s.email?.toLowerCase() === lu.email?.toLowerCase())) {
+        mergedStudents.push(lu);
+      }
+    });
+    setStudents(mergedStudents);
+
     if (supabaseService.isAvailable()) {
       try {
         const [dbRequests, dbUsers] = await Promise.all([
@@ -72,16 +91,27 @@ const App: React.FC = () => {
           supabaseService.fetchUsers()
         ]);
         
-        setRequests(dbRequests.length > 0 ? dbRequests : []);
+        if (dbRequests && dbRequests.length > 0) {
+          setRequests(dbRequests);
+        } else {
+          setRequests(MOCK_REQUESTS);
+        }
         
-        if (dbUsers.length > 0) {
+        if (dbUsers && dbUsers.length > 0) {
           const fetchedStudents = dbUsers.filter(u => u.role === UserRole.STUDENT);
           const fetchedMentors = dbUsers.filter(u => u.role !== UserRole.STUDENT);
-          setStudents(fetchedStudents);
+          
+          const combined = [...mergedStudents];
+          fetchedStudents.forEach(fs => {
+            if (!combined.some(c => c.id.toLowerCase() === fs.id.toLowerCase() || c.email?.toLowerCase() === fs.email?.toLowerCase())) {
+              combined.push(fs);
+            }
+          });
+          setStudents(combined);
           if (fetchedMentors.length > 0) setMentors(fetchedMentors);
         }
       } catch (e) {
-        console.error("Supabase sync failed, using mock fallback.");
+        console.warn("Supabase sync failed, using mock fallback.");
         setRequests(MOCK_REQUESTS);
       }
     } else {
@@ -431,7 +461,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#e4ebf5] dark:bg-[#0f1219] text-slate-800 dark:text-slate-100 transition-colors duration-300">
+    <div className="flex min-h-screen bg-[#e4ebf5] dark:bg-[#0f1219] text-slate-800 dark:text-slate-100 transition-colors duration-300 overflow-x-hidden max-w-full">
       <Sidebar 
         user={currentUser!} 
         activeTab={activeTab} 
@@ -440,7 +470,7 @@ const App: React.FC = () => {
         onClose={() => setIsSidebarOpen(false)}
       />
       
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden max-w-full">
         <TopBar 
         user={currentUser!} 
         isDarkMode={isDarkMode} 
@@ -462,11 +492,10 @@ const App: React.FC = () => {
           />
         )}
 
-        <main className="flex-1 p-3 sm:p-4 md:p-6 lg:p-8 overflow-y-auto">
+        <main className="flex-1 p-2.5 sm:p-4 md:p-6 lg:p-8 overflow-y-auto overflow-x-hidden">
           {renderContent()}
         </main>
-        <div className="h-8"></div>
-        {currentUser?.role !== UserRole.STUDENT && <Footer />}
+        <div className="h-4 sm:h-8"></div>
       </div>
       <style>{`
         @keyframes progress {

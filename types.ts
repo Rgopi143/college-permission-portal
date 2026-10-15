@@ -58,9 +58,11 @@ export interface User {
   email: string;
   role: UserRole;
   branch?: string;
+  department?: string;
   year?: string;
   mentorId?: string; // Links a student to their assigned mentor
   studentId?: string; // Explicit field for students
+  student_id?: string;
   password_hash?: string; // For authentication
   phone?: string;
   date_of_birth?: string;
@@ -73,4 +75,6 @@ export interface User {
   emergency_contact_name?: string;
   emergency_contact_phone?: string;
   emergency_contact_relation?: string;
+  bio?: string;
+  avatar_url?: string;
 }

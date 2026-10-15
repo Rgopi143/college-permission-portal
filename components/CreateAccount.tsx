@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { User, UserRole } from '../types';
-import Footer from './Footer';
 import { supabaseService } from '../services/supabaseService';
 
 interface CreateAccountProps {
@@ -36,7 +35,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({ onAccountCreated, onBack,
   const [errors, setErrors] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -108,8 +107,29 @@ const CreateAccount: React.FC<CreateAccountProps> = ({ onAccountCreated, onBack,
         })
       };
 
-      // Save user to database
-      await supabaseService.upsertUser(newUser);
+      // Save user locally for immediate and offline availability
+      try {
+        const savedUsersStr = localStorage.getItem('collegeflow_registered_users');
+        const localList: User[] = savedUsersStr ? JSON.parse(savedUsersStr) : [];
+        const existingIdx = localList.findIndex(u => u.id.toLowerCase() === newUser.id.toLowerCase() || u.email.toLowerCase() === newUser.email.toLowerCase());
+        if (existingIdx >= 0) {
+          localList[existingIdx] = newUser;
+        } else {
+          localList.push(newUser);
+        }
+        localStorage.setItem('collegeflow_registered_users', JSON.stringify(localList));
+      } catch (err) {
+        console.warn('Failed saving user locally:', err);
+      }
+
+      // Save user to database if available
+      if (supabaseService.isAvailable()) {
+        try {
+          await supabaseService.upsertUser(newUser);
+        } catch (dbErr) {
+          console.warn('Supabase upsert failed, continuing with local session:', dbErr);
+        }
+      }
       
       onAccountCreated(newUser);
     } catch (error) {
@@ -121,38 +141,51 @@ const CreateAccount: React.FC<CreateAccountProps> = ({ onAccountCreated, onBack,
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#e4ebf5] dark:bg-[#0f1219] text-slate-800 dark:text-slate-100 p-4 sm:p-6 lg:p-8 relative overflow-hidden transition-colors duration-300">
+    <div className="min-h-screen flex flex-col bg-[#e4ebf5] dark:bg-[#0f1219] text-slate-800 dark:text-slate-100 p-2.5 sm:p-6 lg:p-8 relative overflow-hidden transition-colors duration-300">
       {/* Ambient background depth blobs */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 dark:bg-indigo-500/15 rounded-full blur-3xl -mr-24 -mt-24 pointer-events-none"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 dark:bg-purple-500/15 rounded-full blur-3xl -ml-24 -mb-24 pointer-events-none"></div>
 
-      <div className="flex-1 flex items-center justify-center my-4 sm:my-8">
-        <div className="w-full max-w-4xl lg:max-w-5xl flex flex-col gap-6 relative z-10">
-          <div className="neu-card p-6 sm:p-10 md:p-12 animate-fade-in relative">
+      <div className="flex-1 flex items-center justify-center my-2 sm:my-8">
+        <div className="w-full max-w-4xl lg:max-w-5xl flex flex-col gap-6 relative z-10 px-0 sm:px-2">
+          <div className="neu-card p-4 sm:p-8 md:p-12 animate-fade-in relative">
             {/* Header with Navigation */}
-            <div className="flex justify-between items-center mb-6">
-              <button 
-                onClick={onBack}
-                className="neu-icon-btn text-xs font-bold"
-                title="Back to Login"
-              >
-                <i className="fas fa-arrow-left"></i>
-              </button>
+            <div className="flex justify-between items-center mb-5 sm:mb-6">
+              <div className="flex items-center gap-2">
+                <button 
+                  onClick={onBack}
+                  className="neu-icon-btn !w-9 !h-9 sm:!w-11 sm:!h-11 text-xs font-bold"
+                  title="Back to Login"
+                >
+                  <i className="fas fa-arrow-left"></i>
+                </button>
+                <div 
+                  className="neu-icon-btn !w-9 !h-9 sm:!w-11 sm:!h-11 !p-1.5 flex items-center justify-center dark:bg-white rounded-xl shadow-sm cursor-default" 
+                  data-logo-box="company"
+                  title="RANBIDGE Solutions Private Limited"
+                >
+                  <img 
+                    src="/RANBIDGE-Solutions-PVT-LTD-Logo.png" 
+                    alt="RANBIDGE Solutions" 
+                    className="w-full h-full object-contain" 
+                  />
+                </div>
+              </div>
               <button 
                 onClick={onToggleDark}
-                className="neu-icon-btn"
+                className="neu-icon-btn !w-9 !h-9 sm:!w-11 sm:!h-11"
                 title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
               >
-                <i className={`fas ${isDarkMode ? 'fa-sun text-amber-400' : 'fa-moon text-indigo-400'}`}></i>
+                <i className={`fas ${isDarkMode ? 'fa-sun text-amber-400' : 'fa-moon text-indigo-400'} text-xs sm:text-base`}></i>
               </button>
             </div>
             
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full neu-inset-sm text-[11px] font-bold text-indigo-600 dark:text-indigo-400 mb-3">
+            <div className="text-center mb-6 sm:mb-8">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full neu-inset-sm text-[10px] sm:text-[11px] font-bold text-indigo-600 dark:text-indigo-400 mb-2.5 sm:mb-3">
                 <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
                 Narasaraopeta Engineering College
               </div>
-              <h1 className="text-2xl md:text-4xl font-black text-slate-800 dark:text-white tracking-tight mb-2">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 dark:text-white tracking-tight mb-2">
                 Create Account
               </h1>
               <p className="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 max-w-md mx-auto">
@@ -161,7 +194,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({ onAccountCreated, onBack,
             </div>
 
             {errors.length > 0 && (
-              <div className="mb-6 p-4 neu-inset text-rose-600 dark:text-rose-400 text-xs font-bold rounded-2xl space-y-1">
+              <div className="mb-5 sm:mb-6 p-3.5 sm:p-4 neu-inset text-rose-600 dark:text-rose-400 text-xs font-bold rounded-2xl space-y-1">
                 {errors.map((error, index) => (
                   <p key={index} className="flex items-center">
                     <i className="fas fa-exclamation-circle mr-2 flex-shrink-0"></i>
@@ -521,7 +554,6 @@ const CreateAccount: React.FC<CreateAccountProps> = ({ onAccountCreated, onBack,
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
