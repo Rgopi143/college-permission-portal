@@ -7,7 +7,7 @@ import { DEFAULT_USERS } from '../constants';
 
 interface LoginProps {
   onLogin: (user: User) => void;
-  onBack: () => void;
+  onBack?: () => void;
   isDarkMode: boolean;
   onToggleDark: () => void;
 }

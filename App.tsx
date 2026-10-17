@@ -20,7 +20,7 @@ import { supabaseService } from './services/supabaseService';
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [view, setView] = useState<'landing' | 'login' | 'app'>('login');
+  const [view, setView] = useState<'landing' | 'login' | 'app'>('landing');
   const [requests, setRequests] = useState<WorkflowRequest[]>([]);
   const [students, setStudents] = useState<User[]>(MOCK_STUDENTS);
   const [mentors, setMentors] = useState<User[]>(MOCK_MENTORS);
@@ -182,7 +182,7 @@ const App: React.FC = () => {
 
   const handleLogout = () => {
     setCurrentUser(null);
-    setView('login');
+    setView('landing');
     localStorage.removeItem('collegeflow_user');
     setActiveTab('dashboard');
     setStudentFormType(null);
